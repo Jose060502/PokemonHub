@@ -80,3 +80,66 @@ fun PokemonCard(pokemon: Pokemon){
         }
     }
 }
+
+@Composable
+fun PokemonLandCard(pokemon: Pokemon){
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        shape = MaterialTheme.shapes.medium
+    ) {
+        Row(
+            modifier = Modifier.padding(8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceAround
+        ) {
+            IconButton(
+                onClick = { /* Acción futura, como mostrar más información del héroe */ },
+                modifier = Modifier.size(48.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.TwoTone.Favorite,
+                    //painter = painterResource(R.drawable.remove_24px), //Icono descargado de Icons de Material.
+                    modifier = Modifier.size(48.dp),
+                    contentDescription = stringResource(R.string.more_content_desc),
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            }
+
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = 16.dp)
+            ) {
+                StandardTextComp(
+                    text = pokemon.name,
+                    style = MaterialTheme.typography.headlineMedium
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                StandardTextComp(
+                    text = "Tipo: ${pokemon.type}",
+                    style = MaterialTheme.typography.headlineMedium
+                )
+                StandardTextComp(
+                    text = "Habilidad: ${pokemon.ability}",
+                    style = MaterialTheme.typography.headlineMedium
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                StandardTextComp(
+                    text = stringResource(R.string.pokemon_description, pokemon.description),
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
+
+            }
+
+            ImageComp(
+                modifier = Modifier,
+                drawable = Datasource.getDrawableIdByName(pokemon.photo),
+                height = 100,
+                width = 100
+            )
+        }
+    }
+}
