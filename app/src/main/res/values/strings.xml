@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">PokemonHub</string>
+    <string name="default_content_descrip">Imagen sin descripcion.</string>
+    <string name="pokemon_list">List of Pokemon</string>
+    <string name="more_content_desc">Show description</string>
+    <string name="pokemon_description">Description: %s.</string>
 </resources>
