@@ -1,5 +1,7 @@
 package com.example.pokemonhub.model
 
+import androidx.lifecycle.ViewModelLazy
+
 data class Pokemon(
     val name: String,
     val type: String,
@@ -12,6 +14,8 @@ data class Pokemon(
     val baseSpAtk : Int,
     val baseSpDef : Int,
     val baseSpeed : Int,
-    val photo : String,
-    val description : String
+    val sprite : String,
+    val spriteShiny : String,
+    val description : String,
+    var comments: List<String>? = null
 )

@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.PokemonHub" parent="android:Theme.Material.Light.NoActionBar" >
+    <!-- Estilo personalizado para la aplicación -->
+    <style name="Theme.PokemonHub" parent="android:Theme.Material.Light.NoActionBar">
+        <!-- Estilo del fondo de la pantalla de inicio -->
         <item name="android:windowSplashScreenBackground">@color/white</item>
+        <!-- Icono animado para la pantalla de inicio -->
         <item name="android:windowSplashScreenAnimatedIcon">@drawable/pokemonhub</item>
+        <!-- Fondo del icono de la pantalla de inicio -->
         <item name="android:windowSplashScreenIconBackgroundColor">@color/white</item>
     </style>
+
 </resources>

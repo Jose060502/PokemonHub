@@ -22,8 +22,15 @@ import androidx.compose.ui.unit.sp
 import com.example.pokemonhub.model.Datasource
 import com.example.pokemonhub.model.Pokemon
 import com.example.pokemonhub.ui.screens.AboutScreen
+import com.example.pokemonhub.ui.screens.PokemonDetailsListCompactScreen
+import com.example.pokemonhub.ui.screens.PokemonDetailsListMedExpScreen
+import com.example.pokemonhub.ui.screens.PokemonFavouriteDetailsListCompactScreen
+import com.example.pokemonhub.ui.screens.PokemonFavouriteDetailsListMedExpScreen
+import com.example.pokemonhub.ui.screens.PokemonFavouriteListCompactScreen
+import com.example.pokemonhub.ui.screens.PokemonFavouriteListMedExpScreen
 import com.example.pokemonhub.ui.screens.PokemonListCompactScreen
 import com.example.pokemonhub.ui.screens.PokemonListMedExpScreen
+import com.example.pokemonhub.ui.screens.ProfileScreen
 import com.example.pokemonhub.ui.theme.PokemonHubTheme
 import com.example.pokemonhub.utils.getWindowSizeClass
 import kotlinx.coroutines.delay
@@ -33,13 +40,17 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             PokemonHubTheme {
-                PokemonApp()
+                PokemonList()
+                //PokemonDetailsList()
+                //PokemonFavouriteList()
+                //PokemonFavouriteDetailsList()
+                //ProfileScreen()
             }
         }
     }
 
     @Composable
-    fun PokemonApp(){
+    fun PokemonList(){
         val pokemon = Datasource.getListXtimes(1)
         val windowsize = getWindowSizeClass(LocalContext.current as Activity)
 
@@ -54,12 +65,61 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+    @Composable
+    fun PokemonDetailsList(){
+        val pokemon = Datasource.getListXtimes(1)
+        val windowsize = getWindowSizeClass(LocalContext.current as Activity)
+
+        PokemonHubTheme {
+            Scaffold (
+                modifier = Modifier.fillMaxSize()
+            ) { innerPadding ->
+                when(windowsize){
+                    WindowWidthSizeClass.Compact -> { PokemonDetailsListCompactScreen(pokemon, Modifier.padding(innerPadding)) }
+                    else -> { PokemonDetailsListMedExpScreen(pokemon, Modifier.padding(innerPadding)) }
+                }
+            }
+        }
+    }
+    @Composable
+    fun PokemonFavouriteList(){
+        val pokemon = Datasource.getListXtimes(1)
+        val windowsize = getWindowSizeClass(LocalContext.current as Activity)
+
+        PokemonHubTheme {
+            Scaffold (
+                modifier = Modifier.fillMaxSize()
+            ) { innerPadding ->
+                when(windowsize){
+                    WindowWidthSizeClass.Compact -> { PokemonFavouriteListCompactScreen(Modifier.padding(innerPadding)) }
+                    else -> { PokemonFavouriteListMedExpScreen(Modifier.padding(innerPadding)) }
+                }
+            }
+        }
+    }
+
+    @Composable
+    fun PokemonFavouriteDetailsList(){
+        val pokemon = Datasource.getListXtimes(1)
+        val windowsize = getWindowSizeClass(LocalContext.current as Activity)
+
+        PokemonHubTheme {
+            Scaffold (
+                modifier = Modifier.fillMaxSize()
+            ) { innerPadding ->
+                when(windowsize){
+                    WindowWidthSizeClass.Compact -> { PokemonFavouriteDetailsListCompactScreen(Modifier.padding(innerPadding)) }
+                    else -> { PokemonFavouriteDetailsListMedExpScreen(Modifier.padding(innerPadding)) }
+                }
+            }
+        }
+    }
 
     @Preview(showBackground = true)
     @Composable
-    fun MarvelHeroesAppPreview() {
+    fun PookemonAppPreview() {
         PokemonHubTheme  {
-            PokemonApp()
+            PokemonList()
         }
     }
 
