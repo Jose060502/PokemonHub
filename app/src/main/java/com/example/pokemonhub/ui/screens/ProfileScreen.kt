@@ -79,7 +79,8 @@ fun ProfileScreen(modifier: Modifier = Modifier){
             Text(
                 text = userPhone,
                 style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onBackground
+                color = MaterialTheme.colorScheme.background,
+                fontWeight = FontWeight.Bold
             )
         }
 
@@ -100,7 +101,8 @@ fun ProfileScreen(modifier: Modifier = Modifier){
             Text(
                 text = userEmail,
                 style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onBackground
+                color = MaterialTheme.colorScheme.background,
+                fontWeight = FontWeight.Bold
             )
         }
 

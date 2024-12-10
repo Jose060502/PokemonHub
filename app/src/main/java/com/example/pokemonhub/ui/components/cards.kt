@@ -37,7 +37,7 @@ fun PokemonCard(pokemon: Pokemon){
             .fillMaxWidth()
             .padding(8.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primary
+            containerColor = MaterialTheme.colorScheme.tertiaryContainer
         ),
         shape = MaterialTheme.shapes.medium,
     ) {
@@ -96,7 +96,7 @@ fun PokemonLandCard(pokemon: Pokemon){
             .fillMaxWidth()
             .padding(8.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primary
+            containerColor = MaterialTheme.colorScheme.tertiaryContainer
         ),
         shape = MaterialTheme.shapes.medium
     ) {
@@ -162,7 +162,7 @@ fun PokemonDetailsCard(pokemon: Pokemon){
             .fillMaxWidth()
             .padding(8.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primary
+            containerColor = MaterialTheme.colorScheme.tertiaryContainer
         ),
         shape = MaterialTheme.shapes.medium
     ) {
@@ -267,7 +267,7 @@ fun PokemonFavouriteDetailsCard(pokemon: Pokemon){
             .fillMaxWidth()
             .padding(8.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primary
+            containerColor = MaterialTheme.colorScheme.tertiaryContainer
         ),
         shape = MaterialTheme.shapes.medium
     ) {
@@ -374,7 +374,7 @@ fun PokemonFavouriteCard(pokemon: Pokemon){
             .fillMaxWidth()
             .padding(8.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primary
+            containerColor = MaterialTheme.colorScheme.tertiaryContainer
         ),
         shape = MaterialTheme.shapes.medium
     ) {
@@ -434,7 +434,7 @@ fun PokemonFavouriteLandCard(pokemon: Pokemon){
             .fillMaxWidth()
             .padding(8.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primary
+            containerColor = MaterialTheme.colorScheme.tertiaryContainer
         ),
         shape = MaterialTheme.shapes.medium
     ) {

@@ -40,11 +40,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             PokemonHubTheme {
-                PokemonList()
+                //PokemonList()
                 //PokemonDetailsList()
                 //PokemonFavouriteList()
                 //PokemonFavouriteDetailsList()
                 //ProfileScreen()
+                MainScreen()
             }
         }
     }
