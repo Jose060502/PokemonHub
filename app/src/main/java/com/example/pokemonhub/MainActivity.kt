@@ -94,10 +94,20 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("pokemon_detail/{pokemon_name}") {
                         val pokemonNamePokedex = it.arguments?.getString("pokemon_name") ?: "NoName"
-//                        when(windowsize){
-//                            WindowWidthSizeClass.Compact -> { PokemonDetailsListCompactScreen(pokemonNamePokedex, Modifier.padding(8.dp))
-//                            }
-//                        }
+                        when(windowsize){
+                            WindowWidthSizeClass.Compact -> { PokemonDetailsListCompactScreen(pokemonNamePokedex, navController,Modifier.padding(8.dp)) }
+                            else -> { PokemonDetailsListMedExpScreen(pokemonNamePokedex, navController, Modifier.padding(8.dp)) }
+                        }
+                    }
+                    composable("pokemon_fav_details/{pokemon_name}") {
+                        val pokemonNamePokedex = it.arguments?.getString("pokemon_name") ?: "NoName"
+                        when(windowsize){
+                            WindowWidthSizeClass.Compact -> { PokemonFavouriteDetailsListCompactScreen(pokemonNamePokedex, navController, Modifier.padding(8.dp)) }
+                            else -> { PokemonFavouriteDetailsListMedExpScreen(pokemonNamePokedex, navController, Modifier.padding(8.dp)) }
+                        }
+                    }
+                    composable("aboutUs") {
+                        MainScreen()
                     }
                 }
             }
