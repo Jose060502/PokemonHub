@@ -5,4 +5,8 @@
     <string name="more_content_desc">Show description</string>
     <string name="pokemon_description">Introducción: %s</string>
     <string name="pokemon_favorite_list">Pokemon Favoritos</string>
+    <string name="delete">Borrar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="delete_pokemon">Borrar Pokemon</string>
+    <string name="delete_pokemon_confirmation">¿Estas seguro que  deseas eleminar a %s de favoritos?</string>
 </resources>

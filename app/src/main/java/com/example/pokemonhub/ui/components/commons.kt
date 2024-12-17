@@ -106,7 +106,7 @@ fun MedHeaderComp(title: String) {
         modifier = Modifier
             .padding(horizontal = 8.dp)
             .fillMaxWidth(),
-        shadowElevation = 2.dp,
+        shadowElevation = 8.dp,
         shape = MaterialTheme.shapes.medium,
         color = MaterialTheme.colorScheme.tertiary
     ) {

@@ -18,34 +18,14 @@ import com.example.pokemonhub.ui.components.PokemonFavouriteCard
 import com.example.pokemonhub.ui.components.PokemonFavouriteDetailsCard
 import com.example.pokemonhub.ui.components.PokemonFavouriteLandCard
 
-fun getFavoriteDetailsPokemons(): List<Pokemon> {
-    return listOf(
-        Datasource.getPokemonByName("Bulbasaur")!!,
-        Datasource.getPokemonByName("Charmander")!!,
-        Datasource.getPokemonByName("Squirtle")!!,
-        Datasource.getPokemonByName("Zapdos")!!,
-        Datasource.getPokemonByName("Mewtwo")!!,
-        Datasource.getPokemonByName("Charizard")!!,
-    )
-}
+
 
 @Composable
-fun PokemonFavouriteDetailsListCompactScreen(modifier: Modifier = Modifier) {
-    // Obtener los 4 Pokémon favoritos
-    val favoritePokemon = getFavoriteDetailsPokemons()
-
-    favoritePokemon.forEach { pokemon ->
-        println("Comentarios de ${pokemon.name}: ${pokemon.comments}")
-    }
-    // Layout de la pantalla
+fun PokemonFavouriteDetailsListCompactScreen(pokemon: MutableList<Pokemon> ,modifier: Modifier = Modifier) {
     Column(modifier = modifier.fillMaxSize()) {
-        // Título de la pantalla
         MedHeaderComp(title = stringResource(id = R.string.pokemon_favorite_list))
-
-        // Usamos LazyColumn para mejorar el rendimiento al mostrar los Pokémon
         LazyColumn(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
-            items(favoritePokemon) { pokemon ->
-                // Mostramos la tarjeta de cada Pokémon
+            items(pokemon) { pokemon ->
                 PokemonFavouriteDetailsCard(pokemon)
             }
         }
@@ -53,11 +33,10 @@ fun PokemonFavouriteDetailsListCompactScreen(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun PokemonFavouriteDetailsListMedExpScreen(modifier: Modifier = Modifier){
-    val favoritePokemon = getFavoriteDetailsPokemons()
+fun PokemonFavouriteDetailsListMedExpScreen(pokemon: MutableList<Pokemon>,modifier: Modifier = Modifier){
     Column(modifier = modifier.fillMaxSize()) {
         LazyColumn(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
-            items(favoritePokemon){ pokemon ->
+            items(pokemon){ pokemon ->
                 PokemonFavouriteDetailsCard(pokemon)
             }
         }

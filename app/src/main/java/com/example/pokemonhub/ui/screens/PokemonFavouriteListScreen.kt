@@ -21,31 +21,14 @@ import com.example.pokemonhub.ui.components.PokemonFavouriteCard
 import com.example.pokemonhub.ui.components.PokemonFavouriteLandCard
 import com.example.pokemonhub.ui.components.PokemonLandCard
 
-fun getFavoritePokemons(): List<Pokemon> {
-    return listOf(
-        Datasource.getPokemonByName("Bulbasaur")!!,
-        Datasource.getPokemonByName("Charmander")!!,
-        Datasource.getPokemonByName("Squirtle")!!,
-        Datasource.getPokemonByName("Zapdos")!!,
-        Datasource.getPokemonByName("Mewtwo")!!,
-        Datasource.getPokemonByName("Charizard")!!,
-    )
-}
+
 
 @Composable
-fun PokemonFavouriteListCompactScreen(modifier: Modifier = Modifier) {
-    // Obtener los 4 Pokémon favoritos
-    val favoritePokemon = getFavoritePokemons()
-
-    // Layout de la pantalla
+fun PokemonFavouriteListCompactScreen(pokemon: MutableList<Pokemon>,modifier: Modifier = Modifier) {
     Column(modifier = modifier.fillMaxSize()) {
-        // Título de la pantalla
         MedHeaderComp(title = stringResource(id = R.string.pokemon_favorite_list))
-
-        // Usamos LazyColumn para mejorar el rendimiento al mostrar los Pokémon
         LazyColumn(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
-            items(favoritePokemon) { pokemon ->
-                // Mostramos la tarjeta de cada Pokémon
+            items(pokemon) { pokemon ->
                 PokemonFavouriteCard(pokemon)
             }
         }
@@ -53,11 +36,10 @@ fun PokemonFavouriteListCompactScreen(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun PokemonFavouriteListMedExpScreen(modifier: Modifier = Modifier){
-    val favoritePokemon = getFavoritePokemons()
+fun PokemonFavouriteListMedExpScreen(pokemon: MutableList<Pokemon>,modifier: Modifier = Modifier){
     Column(modifier = modifier.fillMaxSize()) {
         LazyColumn(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
-            items(favoritePokemon){ pokemon ->
+            items(pokemon){ pokemon ->
                 PokemonFavouriteLandCard(pokemon)
             }
         }
