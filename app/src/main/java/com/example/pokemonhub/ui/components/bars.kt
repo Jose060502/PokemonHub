@@ -20,10 +20,10 @@ fun BottomNavigationBar(
 ){
     NavigationBar {
         val items = listOf(
-            BottomNavItem("hero_list", Icons.AutoMirrored.Filled.List, "Pokemon"),
+            BottomNavItem("pokemon_list", Icons.AutoMirrored.Filled.List, "Pokemon"),
             BottomNavItem("fav_list", Icons.Default.Favorite, "Favoritos"),
             BottomNavItem("profile", Icons.Default.Person, "Perfil"),
-            BottomNavItem("about", Icons.TwoTone.Info, "Información"),
+            BottomNavItem("aboutUs", Icons.TwoTone.Info, "Información"),
         )
         items.forEach{ item ->
             NavigationBarItem(

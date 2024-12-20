@@ -1,13 +1,9 @@
 package com.example.pokemonhub.ui.screens
 
-
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicText
@@ -22,16 +18,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.pokemonhub.R
 
-class AboutScreen : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            AboutScreenContent()
-        }
-    }
-}
-
-// Composable que contiene el contenido de la pantalla "Sobre la Aplicación"
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AboutScreenContent() {
@@ -115,3 +101,5 @@ fun sendEmail(context: Context) {
         Toast.makeText(context, "No hay aplicaciones de correo instaladas.", Toast.LENGTH_SHORT).show()
     }
 }
+
+

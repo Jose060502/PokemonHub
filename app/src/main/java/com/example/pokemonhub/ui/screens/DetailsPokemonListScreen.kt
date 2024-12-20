@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -30,66 +31,68 @@ import com.example.pokemonhub.model.Pokemon
 import com.example.pokemonhub.ui.components.ImageComp
 import com.example.pokemonhub.ui.components.MedHeaderComp
 import com.example.pokemonhub.ui.components.PokemonCard
-import com.example.pokemonhub.ui.components.PokemonDetailsCard
 import com.example.pokemonhub.ui.components.PokemonLandCard
+import com.example.pokemonhub.ui.components.StandardButtonComp
 import com.example.pokemonhub.ui.components.StandardTextComp
 
 @Composable
-fun PokemonDetailsListCompactScreen(pokemon_name: String, navController: NavController, modifier: Modifier = Modifier) {
+fun PokemonDetailsListCompactScreen(
+    pokemon_name: String,
+    navController: NavController,
+    modifier: Modifier = Modifier
+) {
     val pokemon = Datasource.getPokemonByName(pokemon_name)
     Column(
         modifier = modifier
             .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ){
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
         pokemon?.let {
-            IconButton(
-                onClick = { /* Acción futura, como mostrar más información del héroe */ },
-                modifier = Modifier
-                    .size(48.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.TwoTone.Star,
-                    modifier = Modifier.size(48.dp),
-                    contentDescription = stringResource(R.string.more_content_desc),
-                    tint = MaterialTheme.colorScheme.primary
-                )
-            }
             Column(
                 modifier = Modifier.padding(8.dp)
             ) {
-                // Mostramos los sprites
+                // Mostramos los sprites en una fila
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 8.dp),
-                    horizontalArrangement = Arrangement.Center
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    ImageComp(
-                        modifier = Modifier.size(100.dp),
-                        drawable = Datasource.getDrawableIdByName(pokemon.sprite),
-                        height = 100,
-                        width = 100
-                    )
-                    Text(
-                        text = "Normal",
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(top = 4.dp)
-                    )
-                    Spacer(modifier = Modifier.width(40.dp))
-                    ImageComp(
-                        modifier = Modifier.size(100.dp),
-                        drawable = Datasource.getDrawableIdByName(pokemon.spriteShiny),
-                        height = 100,
-                        width = 100
-                    )
-                    Text(
-                        text = "Variocolor",
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(top = 4.dp)
-                    )
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = "Normal",
+                            style = MaterialTheme.typography.headlineSmall,
+                            modifier = Modifier.padding(top = 4.dp)
+                        )
+                        ImageComp(
+                            modifier = Modifier.size(200.dp)
+                                .requiredSize(200.dp),
+                            drawable = Datasource.getDrawableIdByName(pokemon.sprite),
+                            height = 200,
+                            width = 200
+                        )
+                    }
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = "Variocolor",
+                            style = MaterialTheme.typography.headlineSmall,
+                            modifier = Modifier.padding(top = 4.dp)
+                        )
+                        ImageComp(
+                            modifier = Modifier.size(200.dp)
+                                .requiredSize(200.dp),
+                            drawable = Datasource.getDrawableIdByName(pokemon.spriteShiny),
+                            height = 200,
+                            width = 200
+                        )
+                    }
                 }
 
+                Spacer(modifier = Modifier.height(16.dp))
 
                 // Información adicional sobre el Pokémon
                 StandardTextComp(
@@ -127,25 +130,36 @@ fun PokemonDetailsListCompactScreen(pokemon_name: String, navController: NavCont
                     text = "Sp. Atk: ${pokemon.baseSpAtk}, Sp. Def: ${pokemon.baseSpDef}, Speed: ${pokemon.baseSpeed}",
                     style = MaterialTheme.typography.titleMedium
                 )
-
                 Spacer(modifier = Modifier.height(8.dp))
                 StandardTextComp(
                     text = stringResource(R.string.pokemon_description, pokemon.description),
                     style = MaterialTheme.typography.titleSmall
                 )
             }
-        }?: StandardTextComp(stringResource(R.string.pokemon_not_found), style = MaterialTheme.typography.headlineMedium)
+        } ?: StandardTextComp(
+            stringResource(R.string.pokemon_not_found),
+            style = MaterialTheme.typography.headlineMedium
+        )
+
+        Spacer(modifier = Modifier.height(32.dp))
+        StandardButtonComp(
+            label = stringResource(R.string.back),
+            onClick = { navController.navigateUp() })
     }
 }
 
 @Composable
-fun PokemonDetailsListMedExpScreen(pokemon_name: String, navController: NavController, modifier: Modifier = Modifier){
+fun PokemonDetailsListMedExpScreen(
+    pokemon_name: String,
+    navController: NavController,
+    modifier: Modifier = Modifier
+) {
     val pokemon = Datasource.getPokemonByName(pokemon_name)
     Column(
         modifier = modifier
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
-    ){
+    ) {
         pokemon?.let {
             IconButton(
                 onClick = { /* Acción futura, como mostrar más información del héroe */ },
@@ -238,6 +252,9 @@ fun PokemonDetailsListMedExpScreen(pokemon_name: String, navController: NavContr
                     style = MaterialTheme.typography.titleSmall
                 )
             }
-        }?: StandardTextComp(stringResource(R.string.pokemon_not_found), style = MaterialTheme.typography.headlineMedium)
+        } ?: StandardTextComp(
+            stringResource(R.string.pokemon_not_found),
+            style = MaterialTheme.typography.headlineMedium
+        )
     }
 }

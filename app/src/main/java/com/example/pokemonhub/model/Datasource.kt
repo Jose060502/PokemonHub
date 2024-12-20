@@ -335,10 +335,15 @@ object Datasource {
     }
 
     val getSomeRandPokemon: (Int) -> MutableList<Pokemon> = { num ->
-        val pokemon = pokemonList()
-        if (num <= pokemon.size) pokemon.subList(0, num)
-        pokemon
+        val pokemon = pokemonList() // Obtiene la lista completa
+        if (num <= pokemon.size) {
+            pokemon.shuffled().take(num).toMutableList() // Baraja y toma `num` elementos
+        } else {
+            pokemon.shuffled().toMutableList() // Baraja y devuelve todos los elementos
+        }
     }
+
+
 
     fun getDrawableIdByName(name: String): Int {
         return when (name) {

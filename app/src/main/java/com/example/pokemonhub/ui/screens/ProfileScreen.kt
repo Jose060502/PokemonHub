@@ -26,12 +26,23 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.draw.clip
 import com.example.pokemonhub.R
 
-
 @Composable
-fun ProfileScreen(modifier: Modifier = Modifier){
+fun ProfileScreen(modifier: Modifier = Modifier) {
+    // Estado que determina si el usuario está logueado o no
+    var isLoggedIn by remember { mutableStateOf(false) }
+
+    // Función que cambia el estado de login/logout
+    val toggleLoginLogout = {
+        isLoggedIn = !isLoggedIn
+    }
+
     val userPhone = "+34 633 076 804"
     val userEmail = "jsedgon135@g.educaand.es"
 
@@ -45,7 +56,7 @@ fun ProfileScreen(modifier: Modifier = Modifier){
     ) {
         // Foto de perfil
         Image(
-           painter = painterResource(id = R.drawable.fotoperfil),// Reemplaza con tu imagen
+            painter = painterResource(id = R.drawable.fotoperfil), // Reemplaza con tu imagen
             contentDescription = "Foto de perfil",
             modifier = Modifier
                 .size(120.dp)
@@ -56,7 +67,7 @@ fun ProfileScreen(modifier: Modifier = Modifier){
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Nombre del usuario (puedes agregar un campo para el nombre si lo deseas)
+        // Nombre del usuario
         Text(
             text = "Jose060502", // Aquí puedes poner el nombre del usuario
             style = MaterialTheme.typography.headlineMedium,
@@ -65,6 +76,7 @@ fun ProfileScreen(modifier: Modifier = Modifier){
 
         Spacer(modifier = Modifier.height(8.dp))
 
+        // Teléfono del usuario
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
@@ -75,18 +87,18 @@ fun ProfileScreen(modifier: Modifier = Modifier){
                 modifier = Modifier.size(24.dp),
                 tint = MaterialTheme.colorScheme.primary
             )
-            Spacer(modifier = Modifier.width(8.dp)) // Espacio entre el ícono y el texto
+            Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = userPhone,
                 style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.background,
+                color = MaterialTheme.colorScheme.onBackground,
                 fontWeight = FontWeight.Bold
             )
         }
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Correo electrónico con ícono
+        // Correo electrónico del usuario
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
@@ -97,16 +109,23 @@ fun ProfileScreen(modifier: Modifier = Modifier){
                 modifier = Modifier.size(24.dp),
                 tint = MaterialTheme.colorScheme.primary
             )
-            Spacer(modifier = Modifier.width(8.dp)) // Espacio entre el ícono y el texto
+            Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = userEmail,
                 style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.background,
+                color = MaterialTheme.colorScheme.onBackground,
                 fontWeight = FontWeight.Bold
             )
         }
 
         Spacer(modifier = Modifier.height(32.dp))
+
+        // Información de login/logout
+        Text(
+            text = if (isLoggedIn) "Bienvenido, Usuario!" else "No has iniciado sesión",
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
 
         // Botones
         Row(
@@ -120,14 +139,16 @@ fun ProfileScreen(modifier: Modifier = Modifier){
                 Text("Editar perfil")
             }
 
-            // Botón Cerrar sesión
+            // Botón Login/Logout
             Button(
-                onClick = { /* Acción de cerrar sesión aquí */ },
+                onClick = toggleLoginLogout,
                 modifier = Modifier.weight(1f)
             ) {
-                Text("Cerrar sesión")
+                Text(text = if (isLoggedIn) "Cerrar sesión" else "Iniciar sesión")
             }
         }
     }
 }
+
+
 

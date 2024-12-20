@@ -31,7 +31,6 @@ import com.example.pokemonhub.model.Pokemon
 import com.example.pokemonhub.ui.components.ImageComp
 import com.example.pokemonhub.ui.components.MedHeaderComp
 import com.example.pokemonhub.ui.components.PokemonFavouriteCard
-import com.example.pokemonhub.ui.components.PokemonFavouriteDetailsCard
 import com.example.pokemonhub.ui.components.PokemonFavouriteLandCard
 import com.example.pokemonhub.ui.components.StandardTextComp
 
@@ -45,18 +44,6 @@ fun PokemonFavouriteDetailsListCompactScreen(pokemon_name: String, navController
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         pokemon?.let {
-            IconButton(
-                onClick = { /* Acción futura, como mostrar más información del héroe */ },
-                modifier = Modifier
-                    .size(48.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.TwoTone.Clear,
-                    modifier = Modifier.size(48.dp),
-                    contentDescription = stringResource(R.string.more_content_desc),
-                    tint = MaterialTheme.colorScheme.primary
-                )
-            }
             Column(
                 modifier = Modifier.padding(8.dp)
             ) {
