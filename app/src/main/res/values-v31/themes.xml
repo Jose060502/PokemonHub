@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Estilo personalizado para la aplicación -->
     <style name="Theme.PokemonHub" parent="android:Theme.Material.Light.NoActionBar">
         <!-- Estilo del fondo de la pantalla de inicio -->
         <item name="android:windowSplashScreenBackground">@color/white</item>
@@ -10,5 +9,4 @@
         <!-- Fondo del icono de la pantalla de inicio -->
         <item name="android:windowSplashScreenIconBackgroundColor">@color/white</item>
     </style>
-
 </resources>

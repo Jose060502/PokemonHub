@@ -1,5 +1,7 @@
 package com.example.pokemonhub.ui.screens
 
+import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,241 +22,149 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.pokemonhub.R
+import com.example.pokemonhub.datamodel.ListModel
 import com.example.pokemonhub.model.Datasource
 import com.example.pokemonhub.model.Pokemon
 import com.example.pokemonhub.ui.components.ImageComp
+import com.example.pokemonhub.ui.components.LoadingDetail
 import com.example.pokemonhub.ui.components.MedHeaderComp
+import com.example.pokemonhub.ui.components.NotFoundDetail
 import com.example.pokemonhub.ui.components.PokemonCard
+import com.example.pokemonhub.ui.components.PokemonDetailCard
+import com.example.pokemonhub.ui.components.PokemonDetailCardLand
 import com.example.pokemonhub.ui.components.PokemonLandCard
 import com.example.pokemonhub.ui.components.StandardButtonComp
 import com.example.pokemonhub.ui.components.StandardTextComp
+import com.example.pokemonhub.ui.screens.favouritelist.PokemonFavListViewModel
+import com.example.pokemonhub.ui.screens.pokemonlist.PokemonListViewModel
 
 @Composable
 fun PokemonDetailsListCompactScreen(
-    pokemon_name: String,
+    name: String,
     navController: NavController,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    pokemonListVM: PokemonListViewModel = viewModel(factory = PokemonListViewModel.Factory),
+    favListViewModel: PokemonFavListViewModel = viewModel(factory = PokemonFavListViewModel.Factory)
 ) {
-    val pokemon = Datasource.getPokemonByName(pokemon_name)
-    Column(
-        modifier = modifier
-            .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        pokemon?.let {
-            Column(
-                modifier = Modifier.padding(8.dp)
-            ) {
-                // Mostramos los sprites en una fila
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = "Normal",
-                            style = MaterialTheme.typography.headlineSmall,
-                            modifier = Modifier.padding(top = 4.dp)
+
+    val uiState = pokemonListVM.uiState.collectAsState().value
+    val favUiState by favListViewModel.uiState.collectAsState()
+    val pokemon = uiState.pokemon.find { it.name.equals(name, ignoreCase = true) }
+    val isAlreadyFavorite = pokemon?.let { poke ->
+        favUiState.favorites.any { it.name == poke.name }
+    } ?: false
+
+    val alreadyfavorite = stringResource(R.string.already)
+    val favoriteadd = stringResource(R.string.addfavorite)
+    val context = LocalContext.current
+
+    if (uiState.pokemon.isEmpty()) {
+        LoadingDetail(name)
+        return
+    }
+
+    if (pokemon != null) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
+        ) {
+            PokemonDetailCard(
+                pokemon = pokemon,
+                onFavoriteClick = {
+                    if (isAlreadyFavorite) {
+                        Toast.makeText(context, alreadyfavorite, Toast.LENGTH_SHORT).show()
+                    } else {
+                        val hexColor = String.format("#%08X", pokemon.colorFondo.toArgb())
+                        val favoriteItem = ListModel(
+                            name = pokemon.name,
+                            imageUrl = pokemon.imageUrl,
+                            colorHex = hexColor,
+                            types = pokemon.types,
+                            abilities = pokemon.abilities,
+                            stats = pokemon.stats
                         )
-                        ImageComp(
-                            modifier = Modifier.size(200.dp)
-                                .requiredSize(200.dp),
-                            drawable = Datasource.getDrawableIdByName(pokemon.sprite),
-                            height = 200,
-                            width = 200
-                        )
+                        favListViewModel.insertFavourite(favoriteItem)
+                        Toast.makeText(context, favoriteadd, Toast.LENGTH_SHORT).show()
                     }
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = "Variocolor",
-                            style = MaterialTheme.typography.headlineSmall,
-                            modifier = Modifier.padding(top = 4.dp)
-                        )
-                        ImageComp(
-                            modifier = Modifier.size(200.dp)
-                                .requiredSize(200.dp),
-                            drawable = Datasource.getDrawableIdByName(pokemon.spriteShiny),
-                            height = 200,
-                            width = 200
-                        )
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                // Información adicional sobre el Pokémon
-                StandardTextComp(
-                    text = pokemon.name,
-                    style = MaterialTheme.typography.headlineMedium
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                StandardTextComp(
-                    text = "Tipo: ${pokemon.type}",
-                    style = MaterialTheme.typography.titleLarge
-                )
-                StandardTextComp(
-                    text = "Habilidad: ${pokemon.ability}",
-                    style = MaterialTheme.typography.titleLarge
-                )
-                StandardTextComp(
-                    text = "Habilidad oculta: ${pokemon.hiddenAbility}",
-                    style = MaterialTheme.typography.titleLarge
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                StandardTextComp(
-                    text = "Pokedex #: ${pokemon.pokedexNumber}",
-                    style = MaterialTheme.typography.titleSmall
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                StandardTextComp(
-                    text = "Stats:",
-                    style = MaterialTheme.typography.titleSmall
-                )
-                StandardTextComp(
-                    text = "HP: ${pokemon.baseHp}, Attack: ${pokemon.baseAttack}, Defense: ${pokemon.baseDefense}",
-                    style = MaterialTheme.typography.titleMedium
-                )
-                StandardTextComp(
-                    text = "Sp. Atk: ${pokemon.baseSpAtk}, Sp. Def: ${pokemon.baseSpDef}, Speed: ${pokemon.baseSpeed}",
-                    style = MaterialTheme.typography.titleMedium
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                StandardTextComp(
-                    text = stringResource(R.string.pokemon_description, pokemon.description),
-                    style = MaterialTheme.typography.titleSmall
-                )
-            }
-        } ?: StandardTextComp(
-            stringResource(R.string.pokemon_not_found),
-            style = MaterialTheme.typography.headlineMedium
-        )
-
-        Spacer(modifier = Modifier.height(32.dp))
-        StandardButtonComp(
-            label = stringResource(R.string.back),
-            onClick = { navController.navigateUp() })
+                },
+                onBackClick = { navController.navigateUp() }
+            )
+        }
+    } else {
+        NotFoundDetail(name)
     }
 }
 
 @Composable
-fun PokemonDetailsListMedExpScreen(
-    pokemon_name: String,
+fun DetailPokemonScreenMedium(
+    name: String,
     navController: NavController,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    pokemonListVM: PokemonListViewModel = viewModel(factory = PokemonListViewModel.Factory),
+    favListViewModel: PokemonFavListViewModel = viewModel(factory = PokemonFavListViewModel.Factory)
 ) {
-    val pokemon = Datasource.getPokemonByName(pokemon_name)
-    Column(
-        modifier = modifier
-            .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        pokemon?.let {
-            IconButton(
-                onClick = { /* Acción futura, como mostrar más información del héroe */ },
-                modifier = Modifier
-                    .size(48.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.TwoTone.Star,
-                    modifier = Modifier.size(48.dp),
-                    contentDescription = stringResource(R.string.more_content_desc),
-                    tint = MaterialTheme.colorScheme.primary
+
+    val uiState = pokemonListVM.uiState.collectAsState().value
+    val favUiState by favListViewModel.uiState.collectAsState()
+
+    val pokemon = uiState.pokemon.find { it.name.equals(name, ignoreCase = true) }
+
+    val isAlreadyFavorite = pokemon?.let { poke ->
+        favUiState.favorites.any { it.name == poke.name }
+    } ?: false
+
+    val alreadyfavorite = stringResource(R.string.already)
+    val favoriteadd = stringResource(R.string.addfavorite)
+    val context = LocalContext.current
+
+    if (uiState.pokemon.isEmpty()) {
+        LoadingDetail(name)
+        return
+    }
+
+    if (pokemon != null) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background) // Cambié colorFondo por background
+        ) {
+            item {
+                PokemonDetailCardLand(
+                    pokemon = pokemon,
+                    onFavoriteClick = {
+                        if (isAlreadyFavorite) {
+                            Toast.makeText(context, alreadyfavorite, Toast.LENGTH_SHORT).show()
+                        } else {
+                            val hexColor = String.format("#%08X", pokemon.colorFondo.toArgb())
+                            val favoriteItem = ListModel(
+                                name = pokemon.name,
+                                imageUrl = pokemon.imageUrl,
+                                colorHex = hexColor,
+                                types = pokemon.types,
+                                abilities = pokemon.abilities,
+                                stats = pokemon.stats
+                            )
+                            favListViewModel.insertFavourite(favoriteItem)
+                            Toast.makeText(context, favoriteadd, Toast.LENGTH_SHORT).show()
+                        }
+                    },
+                    onBackClick = { navController.navigateUp() }
                 )
             }
-            Column(
-                modifier = Modifier.padding(8.dp)
-            ) {
-                // Mostramos los sprites
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 8.dp),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    ImageComp(
-                        modifier = Modifier.size(100.dp),
-                        drawable = Datasource.getDrawableIdByName(pokemon.sprite),
-                        height = 100,
-                        width = 100
-                    )
-                    Text(
-                        text = "Normal",
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(top = 4.dp)
-                    )
-                    Spacer(modifier = Modifier.width(40.dp))
-                    ImageComp(
-                        modifier = Modifier.size(100.dp),
-                        drawable = Datasource.getDrawableIdByName(pokemon.spriteShiny),
-                        height = 100,
-                        width = 100
-                    )
-                    Text(
-                        text = "Variocolor",
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(top = 4.dp)
-                    )
-                }
-
-
-                // Información adicional sobre el Pokémon
-                StandardTextComp(
-                    text = pokemon.name,
-                    style = MaterialTheme.typography.headlineMedium
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                StandardTextComp(
-                    text = "Tipo: ${pokemon.type}",
-                    style = MaterialTheme.typography.titleLarge
-                )
-                StandardTextComp(
-                    text = "Habilidad: ${pokemon.ability}",
-                    style = MaterialTheme.typography.titleLarge
-                )
-                StandardTextComp(
-                    text = "Habilidad oculta: ${pokemon.hiddenAbility}",
-                    style = MaterialTheme.typography.titleLarge
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                StandardTextComp(
-                    text = "Pokedex #: ${pokemon.pokedexNumber}",
-                    style = MaterialTheme.typography.titleSmall
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                StandardTextComp(
-                    text = "Stats:",
-                    style = MaterialTheme.typography.titleSmall
-                )
-                StandardTextComp(
-                    text = "HP: ${pokemon.baseHp}, Attack: ${pokemon.baseAttack}, Defense: ${pokemon.baseDefense}",
-                    style = MaterialTheme.typography.titleMedium
-                )
-                StandardTextComp(
-                    text = "Sp. Atk: ${pokemon.baseSpAtk}, Sp. Def: ${pokemon.baseSpDef}, Speed: ${pokemon.baseSpeed}",
-                    style = MaterialTheme.typography.titleMedium
-                )
-
-                Spacer(modifier = Modifier.height(8.dp))
-                StandardTextComp(
-                    text = stringResource(R.string.pokemon_description, pokemon.description),
-                    style = MaterialTheme.typography.titleSmall
-                )
-            }
-        } ?: StandardTextComp(
-            stringResource(R.string.pokemon_not_found),
-            style = MaterialTheme.typography.headlineMedium
-        )
+        }
+    } else {
+        NotFoundDetail(name)
     }
 }

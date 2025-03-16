@@ -15,333 +15,269 @@
  */
 
 package com.example.pokemonhub.model
-
+import androidx.compose.ui.graphics.Color
 import com.example.pokemonhub.R
 
 
 object Datasource {
 
     val pokemonList: () -> MutableList<Pokemon> = {
-        mutableListOf<Pokemon>(
+        mutableListOf(
             Pokemon(
-                "Bulbasaur",
-                "Planta-Veneno",
-                1,
-                "Espesura",
-                "Clorofila",
-                45,
-                49,
-                49,
-                65,
-                65,
-                45,
-                "Bulbasaur",
-                "BulbasaurShiny",
-                "Una rara semilla fue plantada en su espalda al nacer. La planta brota y crece con este Pokémon."
+                name = "Bulbasaur",
+                types = listOf("Planta", "Veneno"),
+                abilities = listOf("Espesura", "Clorofila"),
+                stats = listOf("PS: 45", "Ataque: 49", "Defensa: 49", "At. Esp.: 65", "Def. Esp.: 65", "Velocidad: 45"),
+                imageUrl = "Bulbasaur",
+                colorFondo = Color.LightGray
             ),
             Pokemon(
-                "Ivysaur",
-                "Planta-Veneno",
-                2,
-                "Espesura",
-                "Clorofila",
-                60,
-                62,
-                63,
-                80,
-                80,
-                60,
-                "Ivysaur",
-                "IvysaurShiny",
-                "Cuando el bulbo de su espalda crece, parece no poder ponerse de pie sobre sus patas traseras."
+                name = "Ivysaur",
+                types = listOf("Planta", "Veneno"),
+                abilities = listOf("Espesura", "Clorofila"),
+                stats = listOf("PS: 60", "Ataque: 62", "Defensa: 63", "At. Esp.: 80", "Def. Esp.: 80", "Velocidad: 60"),
+                imageUrl = "Ivysaur",
+                colorFondo = Color.LightGray
             ),
             Pokemon(
-                "Venusaur",
-                "Planta-Veneno",
-                3,
-                "Espesura",
-                "Clorofila",
-                80,
-                82,
-                83,
-                100,
-                100,
-                80,
-                "Venusaur",
-                "VenusaurShiny",
-                "La planta florece cuando absorbe energía solar. Ésta le obliga a ponerse en busca de la luz solar."
+                name = "Venusaur",
+                types = listOf("Planta", "Veneno"),
+                abilities = listOf("Espesura", "Clorofila"),
+                stats = listOf("PS: 80", "Ataque: 82", "Defensa: 83", "At. Esp.: 100", "Def. Esp.: 100", "Velocidad: 80"),
+                imageUrl = "Venusaur",
+                colorFondo = Color.LightGray
             ),
             Pokemon(
-                "Charmander",
-                "Fuego",
-                4,
-                "Mar llamas",
-                "Poder solar",
-                39,
-                52,
-                43,
-                60,
-                50,
-                65,
-                "Charmander",
-                "CharmanderShiny",
-                "Prefiere los sitios calientes. Dicen que cuando llueve sale vapor de la punta de su cola."
+                name = "Charmander",
+                types = listOf("Fuego"),
+                abilities = listOf("Mar Llamas", "Poder Solar"),
+                stats = listOf("PS: 39", "Ataque: 52", "Defensa: 43", "At. Esp.: 60", "Def. Esp.: 50", "Velocidad: 65"),
+                imageUrl = "Charmander",
+                colorFondo = Color.LightGray
             ),
             Pokemon(
-                "Charmeleon",
-                "Fuego",
-                5,
-                "Mar llamas",
-                "Poder solar",
-                58,
-                64,
-                58,
-                80,
-                65,
-                80,
-                "Charmeleon",
-                "CharmeleonShiny",
-                "Cuando balancea su ardiente cola, eleva la temperatura a niveles muy altos."
+                name = "Charmeleon",
+                types = listOf("Fuego"),
+                abilities = listOf("Mar Llamas", "Poder Solar"),
+                stats = listOf("PS: 58", "Ataque: 64", "Defensa: 58", "At. Esp.: 80", "Def. Esp.: 65", "Velocidad: 80"),
+                imageUrl = "Charmeleon",
+                colorFondo = Color.LightGray
             ),
             Pokemon(
-                "Charizard",
-                "Fuego-Volador",
-                6,
-                "Mar llamas",
-                "Poder Solar",
-                78,
-                84,
-                78,
-                109,
-                85,
-                100,
-                "Charizard",
-                "CharizardShiny",
-                "Escupe fuego tan caliente que funde las rocas. Causa incendios forestales sin querer."
+                name = "Charizard",
+                types = listOf("Fuego", "Volador"),
+                abilities = listOf("Mar Llamas", "Poder Solar"),
+                stats = listOf("PS: 78", "Ataque: 84", "Defensa: 78", "At. Esp.: 109", "Def. Esp.: 85", "Velocidad: 100"),
+                imageUrl = "Charizard",
+                colorFondo = Color.LightGray
             ),
             Pokemon(
-                "Squirtle",
-                "Agua",
-                7,
-                "Torrente",
-                "Cura lluvia",
-                44,
-                48,
-                65,
-                50,
-                64,
-                43,
-                "Squirtle",
-                "SquirtleShiny",
-                "Tras nacer, su espalda se hincha y endurece como una concha. Echa potente espuma por la boca."
+                name = "Squirtle",
+                types = listOf("Agua"),
+                abilities = listOf("Torrente", "Cura Lluvia"),
+                stats = listOf("PS: 44", "Ataque: 48", "Defensa: 65", "At. Esp.: 50", "Def. Esp.: 64", "Velocidad: 43"),
+                imageUrl = "Squirtle",
+                colorFondo = Color.LightGray
             ),
             Pokemon(
-                "Wartortle",
-                "Agua",
-                8,
-                "Torrente",
-                "Cura lluvia",
-                59,
-                63,
-                80,
-                65,
-                80,
-                58,
-                "Wartortle",
-                "WartortleShiny",
-                "Se oculta en el agua para cazar a sus presas. Al nadar rápidamente, mueve sus orejas para nivelarse."
+                name = "Wartortle",
+                types = listOf("Agua"),
+                abilities = listOf("Torrente", "Cura Lluvia"),
+                stats = listOf("PS: 59", "Ataque: 63", "Defensa: 80", "At. Esp.: 65", "Def. Esp.: 80", "Velocidad: 58"),
+                imageUrl = "Wartortle",
+                colorFondo = Color.LightGray
             ),
             Pokemon(
-                "Blastoise",
-                "Agua",
-                9,
-                "Torrente",
-                "Cura lluvia",
-                79,
-                83,
-                100,
-                85,
-                105,
-                78,
-                "Blastoise",
-                "BlastoiseShiny",
-                "Un brutal Pokémon con reactores de agua en su caparazón. Éstos son usados para rápidos placajes."
+                name = "Blastoise",
+                types = listOf("Agua"),
+                abilities = listOf("Torrente", "Cura Lluvia"),
+                stats = listOf("PS: 79", "Ataque: 83", "Defensa: 100", "At. Esp.: 85", "Def. Esp.: 105", "Velocidad: 78"),
+                imageUrl = "Blastoise",
+                colorFondo = Color.LightGray
             ),
             Pokemon(
-                "Articuno",
-                "Hielo-Volador",
-                144,
-                "Presión",
-                "Manto Níveo",
-                90,
-                85,
-                100,
-                95,
-                125,
-                85,
-                "Articuno",
-                "ArticunoShiny",
-                "Un legendario pájaro Pokémon. Se aparece a la gente que se ha perdido en las heladas montañas."
+                name = "Mewtwo",
+                types = listOf("Psíquico"),
+                abilities = listOf("Presión", "Nerviosismo"),
+                stats = listOf("PS: 106", "Ataque: 110", "Defensa: 90", "At. Esp.: 154", "Def. Esp.: 90", "Velocidad: 130"),
+                imageUrl = "Mewtwo",
+                colorFondo = Color.LightGray
             ),
             Pokemon(
-                "Zapdos",
-                "Electrico-Volador",
-                145,
-                "Presión",
-                "Pararrayos",
-                90,
-                90,
-                85,
-                125,
-                90,
-                100,
-                "Zapdos",
-                "ZapdosShiny",
-                "Un legendario pájaro Pokémon. Dicen que aparece entre las nubes lanzando enormes rayos brillantes."
-            ),
-            Pokemon(
-                "Moltres",
-                "Fuego-Volador",
-                146,
-                "Presión",
-                "Cuerpo llama",
-                90,
-                100,
-                90,
-                125,
-                85,
-                90,
-                "Moltres",
-                "MoltresShiny",
-                "Más conocido como el legendario pájaro de fuego. Con cada aleteo crea brillantes llamas."
-            ),
-            Pokemon(
-                "Mewtwo",
-                "Psíquico",
-                150,
-                "Presión",
-                "Nerviosismo",
-                106,
-                110,
-                90,
-                154,
-                90,
-                130,
-                "Mewtwo",
-                "MewtwoShiny",
-                "Fue creado por un científico tras años de horribles experimentos de ingeniería genética."
-            ),
-            Pokemon(
-                "Mew",
-                "Psíquico",
-                151,
-                "Sincronía",
-                "",
-                100,
-                100,
-                100,
-                100,
-                100,
-                100,
-                "Mew",
-                "MewShiny",
-                "Es tan raro que muchos expertos opinan que es solo una ilusión. Solo unos pocos lo han visto."
-            ),
+                name = "Mew",
+                types = listOf("Psíquico"),
+                abilities = listOf("Sincronía"),
+                stats = listOf("PS: 100", "Ataque: 100", "Defensa: 100", "At. Esp.: 100", "Def. Esp.: 100", "Velocidad: 100"),
+                imageUrl = "Mew",
+                colorFondo = Color.LightGray
+            )
         )
     }
 
-    fun getFavoriteDetailsPokemons(): List<Pokemon> {
-        return listOf(
-            // Bulbasaur
-            getPokemonByName("Bulbasaur")!!.apply {
-                comments = listOf(
-                    "Me encanta Bulbasaur porque es uno de los primeros Pokémon, ¡y la idea de tener una planta en la espalda me parece genial!",
-                    "Bulbasaur tiene un diseño muy sencillo pero encantador, y es uno de los más accesibles para los principiantes.",
-                    "Amo la combinación de tipo Planta y Veneno, ¡y su evolución a Venusaur es impresionante!",
-                    "Es mi Pokémon favorito porque es fiel y siempre me ha acompañado en mis juegos. Además, ¡tiene un gran potencial competitivo!",
-                    "Bulbasaur tiene un aspecto tan adorable, siempre me hace pensar en los días de infancia jugando Pokémon."
-                )
-            },
-
-            // Charmander
-            getPokemonByName("Charmander")!!.apply {
-                comments = listOf(
-                    "Charmander es mi favorito porque el fuego siempre me ha fascinado. ¡Su cola es lo más!",
-                    "Me encanta cómo Charmander evoluciona en Charizard, uno de los Pokémon más poderosos de todos.",
-                    "Siempre he sido fan de los Pokémon de tipo fuego, y Charmander es el comienzo perfecto para un entrenador.",
-                    "Es un Pokémon con una gran historia detrás, y su evolución a Charizard es épica. Siempre ha sido mi compañero fiel.",
-                    "Charmander es un Pokémon con mucha energía y tiene una de las evoluciones más poderosas de la serie."
-                )
-            },
-
-            // Squirtle
-            getPokemonByName("Squirtle")!!.apply {
-                comments = listOf(
-                    "Squirtle siempre ha sido mi elección porque me gustan mucho los Pokémon de agua, y su diseño es supercool.",
-                    "Me gusta Squirtle porque es un Pokémon que tiene una evolución increíble, ¡Blastoise es imbatible!",
-                    "Es tan tierno y su habilidad en batallas es excelente. ¡Además, me encanta su actitud en el anime!",
-                    "Siempre elegí a Squirtle en los juegos originales. ¡El poder del agua es tan versátil en combate!",
-                    "Squirtle me recuerda a mis primeras experiencias jugando Pokémon. ¡Un clásico que nunca pasa de moda!"
-                )
-            },
-
-            // Zapdos
-            getPokemonByName("Zapdos")!!.apply {
-                comments = listOf(
-                    "Zapdos es uno de los pájaros legendarios, y su habilidad eléctrica es algo único. ¡Es increíblemente poderoso!",
-                    "Me encanta el diseño de Zapdos, es como un rayo viviente. Siempre lo he considerado uno de los Pokémon más majestuosos.",
-                    "Zapdos es uno de los mejores Pokémon para cualquier entrenador que quiera una ventaja eléctrica en sus batallas.",
-                    "Es mi Pokémon legendario favorito, su poder y su forma imponente son únicos en la serie.",
-                    "El hecho de que Zapdos sea tan raro y potente lo hace aún más especial. ¡Siempre he querido tenerlo en mi equipo!"
-                )
-            },
-
-            // Mewtwo
-            getPokemonByName("Mewtwo")!!.apply {
-                comments = listOf(
-                    "Mewtwo es increíble, es uno de los Pokémon más poderosos y tiene una historia fascinante en el anime.",
-                    "La combinación de ser un Pokémon psíquico y su origen genético lo hacen un personaje muy intrigante. ¡Es un verdadero líder!",
-                    "Su poder y habilidades psíquicas lo hacen un rival formidable. ¡Siempre lo he querido en mi equipo por su increíble poder!",
-                    "Mewtwo tiene una historia única. Me encanta cómo su personalidad se desarrolla en las películas y juegos.",
-                    "Es un Pokémon tan impresionante, su diseño y su poder psíquico lo convierten en uno de los más icónicos de todos."
-                )
-            },
-
-            // Charizard
-            getPokemonByName("Charizard")!!.apply {
-                comments = listOf(
-                    "Charizard es uno de los Pokémon más emblemáticos. Su presencia en batalla es imponente y siempre me ha fascinado.",
-                    "Siempre he sido un gran fan de los Pokémon de tipo fuego, y Charizard es el rey de todos ellos.",
-                    "Charizard tiene una gran historia detrás, su evolución de Charmander a Charizard es épica, y su poder es inmenso.",
-                    "Lo adoro porque es un Pokémon versátil que puede hacer frente a muchas situaciones en batalla. ¡Es un clásico!",
-                    "Charizard tiene uno de los diseños más geniales de todos los Pokémon. Además, ¡es un icono de la franquicia!"
-                )
-            }
+    val pokemonFavList: () -> MutableList<Pokemon> = {
+        mutableListOf(
+            Pokemon(
+                name = "Bulbasaur",
+                types = listOf("Planta", "Veneno"),
+                abilities = listOf("Espesura", "Clorofila"),
+                stats = listOf(
+                    "PS: 45",
+                    "Ataque: 49",
+                    "Defensa: 49",
+                    "At. Esp.: 65",
+                    "Def. Esp.: 65",
+                    "Velocidad: 45"
+                ),
+                imageUrl = "Bulbasaur",
+                colorFondo = Color.LightGray
+            ),
+            Pokemon(
+                name = "Ivysaur",
+                types = listOf("Planta", "Veneno"),
+                abilities = listOf("Espesura", "Clorofila"),
+                stats = listOf(
+                    "PS: 60",
+                    "Ataque: 62",
+                    "Defensa: 63",
+                    "At. Esp.: 80",
+                    "Def. Esp.: 80",
+                    "Velocidad: 60"
+                ),
+                imageUrl = "Ivysaur",
+                colorFondo = Color.LightGray
+            ),
+            Pokemon(
+                name = "Venusaur",
+                types = listOf("Planta", "Veneno"),
+                abilities = listOf("Espesura", "Clorofila"),
+                stats = listOf(
+                    "PS: 80",
+                    "Ataque: 82",
+                    "Defensa: 83",
+                    "At. Esp.: 100",
+                    "Def. Esp.: 100",
+                    "Velocidad: 80"
+                ),
+                imageUrl = "Venusaur",
+                colorFondo = Color.LightGray
+            ),
+            Pokemon(
+                name = "Charmander",
+                types = listOf("Fuego"),
+                abilities = listOf("Mar Llamas", "Poder Solar"),
+                stats = listOf(
+                    "PS: 39",
+                    "Ataque: 52",
+                    "Defensa: 43",
+                    "At. Esp.: 60",
+                    "Def. Esp.: 50",
+                    "Velocidad: 65"
+                ),
+                imageUrl = "Charmander",
+                colorFondo = Color.LightGray
+            ),
+            Pokemon(
+                name = "Charmeleon",
+                types = listOf("Fuego"),
+                abilities = listOf("Mar Llamas", "Poder Solar"),
+                stats = listOf(
+                    "PS: 58",
+                    "Ataque: 64",
+                    "Defensa: 58",
+                    "At. Esp.: 80",
+                    "Def. Esp.: 65",
+                    "Velocidad: 80"
+                ),
+                imageUrl = "Charmeleon",
+                colorFondo = Color.LightGray
+            ),
+            Pokemon(
+                name = "Charizard",
+                types = listOf("Fuego", "Volador"),
+                abilities = listOf("Mar Llamas", "Poder Solar"),
+                stats = listOf(
+                    "PS: 78",
+                    "Ataque: 84",
+                    "Defensa: 78",
+                    "At. Esp.: 109",
+                    "Def. Esp.: 85",
+                    "Velocidad: 100"
+                ),
+                imageUrl = "Charizard",
+                colorFondo = Color.LightGray
+            ),
+            Pokemon(
+                name = "Squirtle",
+                types = listOf("Agua"),
+                abilities = listOf("Torrente", "Cura Lluvia"),
+                stats = listOf(
+                    "PS: 44",
+                    "Ataque: 48",
+                    "Defensa: 65",
+                    "At. Esp.: 50",
+                    "Def. Esp.: 64",
+                    "Velocidad: 43"
+                ),
+                imageUrl = "Squirtle",
+                colorFondo = Color.LightGray
+            ),
+            Pokemon(
+                name = "Wartortle",
+                types = listOf("Agua"),
+                abilities = listOf("Torrente", "Cura Lluvia"),
+                stats = listOf(
+                    "PS: 59",
+                    "Ataque: 63",
+                    "Defensa: 80",
+                    "At. Esp.: 65",
+                    "Def. Esp.: 80",
+                    "Velocidad: 58"
+                ),
+                imageUrl = "Wartortle",
+                colorFondo = Color.LightGray
+            ),
+            Pokemon(
+                name = "Blastoise",
+                types = listOf("Agua"),
+                abilities = listOf("Torrente", "Cura Lluvia"),
+                stats = listOf(
+                    "PS: 79",
+                    "Ataque: 83",
+                    "Defensa: 100",
+                    "At. Esp.: 85",
+                    "Def. Esp.: 105",
+                    "Velocidad: 78"
+                ),
+                imageUrl = "Blastoise",
+                colorFondo = Color.LightGray
+            ),
         )
     }
 
 
 
-    val getListXtimes: (Int) -> MutableList<Pokemon> = { times ->
-        val list = mutableListOf<Pokemon>()
-        for (i in 1..times) {
-            list.addAll(pokemonList())
-        }
-        list
-    }
 
-    val getPokemonByName: (String) -> Pokemon? = { name ->
-        pokemonList().find { it.name == name } ?: null
-    }
 
-    val getSomeRandPokemon: (Int) -> MutableList<Pokemon> = { num ->
-        val pokemon = pokemonList() // Obtiene la lista completa
-        if (num <= pokemon.size) {
-            pokemon.shuffled().take(num).toMutableList() // Baraja y toma `num` elementos
-        } else {
-            pokemon.shuffled().toMutableList() // Baraja y devuelve todos los elementos
-        }
-    }
+//    val getListXtimes: (Int) -> MutableList<Pokemon> = { times ->
+//        val list = mutableListOf<Pokemon>()
+//        for (i in 1..times) {
+//            list.addAll(pokemonList())
+//        }
+//        list
+//    }
+//
+//    val getPokemonByName: (String) -> Pokemon? = { name ->
+//        pokemonList().find { it.name == name } ?: null
+//    }
+//
+//    val getSomeRandPokemon: (Int) -> MutableList<Pokemon> = { num ->
+//        val pokemon = pokemonList() // Obtiene la lista completa
+//        if (num <= pokemon.size) {
+//            pokemon.shuffled().take(num).toMutableList() // Baraja y toma `num` elementos
+//        } else {
+//            pokemon.shuffled().toMutableList() // Baraja y devuelve todos los elementos
+//        }
+//    }
 
 
 
