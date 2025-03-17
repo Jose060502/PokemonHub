@@ -32,7 +32,6 @@ data class FullPokemon(
             Color(0xFF8A63FF),
             Color(0xFF4A7CFF),
             Color(0xFF9A77FF),
-            Color.Black
         )
         return colors.random()
     }

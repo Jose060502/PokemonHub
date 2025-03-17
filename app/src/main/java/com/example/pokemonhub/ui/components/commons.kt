@@ -203,7 +203,7 @@ fun StandardText(label: String, modifier: Modifier = Modifier) {
     Text(
         modifier = modifier
             .padding(8.dp),
-        style = MaterialTheme.typography.displayMedium,
+        style = MaterialTheme.typography.displaySmall,
         color = MaterialTheme.colorScheme.surface,
         maxLines = 100,
         text = label
@@ -216,7 +216,7 @@ fun StandardTextNull(label: String?, modifier: Modifier = Modifier) {
         Text(
             modifier = modifier
                 .padding(8.dp),
-            style = MaterialTheme.typography.headlineMedium,
+            style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.surface,
             maxLines = 100,
             text = label
