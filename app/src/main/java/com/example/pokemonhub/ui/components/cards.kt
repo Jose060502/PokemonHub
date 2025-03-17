@@ -144,7 +144,7 @@ fun PokemonCard(
             ) {
                 StandardTextComp(
                     text = pokemon.name,
-                    style = MaterialTheme.typography.headlineMedium
+                    style = MaterialTheme.typography.headlineSmall
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 StandardTextComp(
