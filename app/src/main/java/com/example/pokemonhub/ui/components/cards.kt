@@ -161,7 +161,7 @@ fun PokemonCard(
                 model = pokemon.imageUrl,
                 contentDescription = pokemon.name,
                 modifier = Modifier
-                    .size(100.dp),
+                    .size(120.dp),
                 contentScale = ContentScale.Crop,
                 error = painterResource(id = R.drawable.pokemonhub)
             )

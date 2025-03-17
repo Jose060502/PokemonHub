@@ -4,6 +4,8 @@ import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
@@ -16,6 +18,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.pokemonhub.data.ModoVisualizacion
 import com.example.pokemonhub.model.Datasource
 import com.example.pokemonhub.model.Datasource.pokemonFavList
 import com.example.pokemonhub.ui.components.BottomNavigationBar
@@ -29,6 +32,7 @@ import com.example.pokemonhub.ui.screens.favouritelist.PokemonFavouriteListMedEx
 import com.example.pokemonhub.ui.screens.pokemonlist.PokemonListCompactScreen
 import com.example.pokemonhub.ui.screens.pokemonlist.PokemonListMedExpScreen
 import com.example.pokemonhub.ui.screens.profilescreen.ProfileScreen
+import com.example.pokemonhub.ui.screens.profilescreen.ProfileViewModel
 import com.example.pokemonhub.ui.theme.PokemonHubTheme
 import com.example.pokemonhub.utils.getWindowSizeClass
 import kotlinx.coroutines.flow.map
@@ -36,10 +40,19 @@ import kotlinx.coroutines.flow.map
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContent {
-            PokemonHubTheme {
+            val profileViewModel: ProfileViewModel = viewModel(factory = ProfileViewModel.Factory)
+            val profileUiState by profileViewModel.uiState.collectAsState()
+            val isDarkTheme = when (profileUiState.modoVisualizacion) {
+                ModoVisualizacion.CLARO -> false
+                ModoVisualizacion.OSCURO -> true
+                ModoVisualizacion.SYSTEM -> isSystemInDarkTheme()
+            }
+            PokemonHubTheme(
+                darkTheme = isDarkTheme,
+            ) {
                 PokemonList()
-
             }
         }
     }
