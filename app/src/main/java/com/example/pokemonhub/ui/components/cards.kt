@@ -437,13 +437,14 @@ fun PokemonDetailCard(
 
     Card(
         modifier = modifier
-            .fillMaxWidth(),
-        shape = RoundedCornerShape(12.dp),
+            .fillMaxWidth()
+            .fillMaxHeight(),
     ) {
         BarraDetallesPokemon(stringResource(R.string.detalles_pokemon), pokemon, onBackClick)
         Column(
             modifier = Modifier
                 .fillMaxWidth()
+                .fillMaxHeight()
                 .background(pokemon.colorFondo) // Usamos el color del Pokémon
                 .padding(8.dp)
         ) {
@@ -531,14 +532,15 @@ fun PokemonDetailCardLand(
     Card(
         modifier = modifier
             .fillMaxWidth()
+            .fillMaxHeight()
             .padding(8.dp),
-        shape = RoundedCornerShape(12.dp),
     ) {
         BarraDetallesPokemon(stringResource(R.string.detalles_pokemon), pokemon, onBackClick)
         Column {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .fillMaxHeight()
                     .background(pokemon.colorFondo)  // Usamos el colorFondo del Pokémon
                     .padding(16.dp)
             ) {

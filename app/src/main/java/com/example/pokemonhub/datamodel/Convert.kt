@@ -18,15 +18,4 @@ class Convert {
         return list.joinToString(separator = ",")
     }
 
-    // Convertidor para List<PokemonStat> usando kotlinx.serialization
-    @TypeConverter
-    fun fromPokemonStatList(value: String?): List<PokemonStat> {
-        if (value.isNullOrEmpty()) return emptyList()
-        return Json.decodeFromString(value)
-    }
-
-    @TypeConverter
-    fun toPokemonStatList(list: List<PokemonStat>): String {
-        return Json.encodeToString(list)
-    }
 }

@@ -132,10 +132,9 @@ fun StandardTextComp(
 fun MedHeaderComp(title: String) {
     Surface(
         modifier = Modifier
-            .padding(horizontal = 8.dp)
+            .padding(horizontal = 0.dp)
             .fillMaxWidth(),
         shadowElevation = 8.dp,
-        shape = MaterialTheme.shapes.medium,
         color = MaterialTheme.colorScheme.tertiary
     ) {
         Box(
@@ -149,36 +148,6 @@ fun MedHeaderComp(title: String) {
                 style = MaterialTheme.typography.headlineMedium,
                 color = Color.White
             )
-        }
-    }
-}
-
-@Composable
-fun MedHeaderComp(title: String, modifier: Modifier = Modifier) {
-
-    Surface(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.primary),
-        shadowElevation = 1.dp,
-        shape = MaterialTheme.shapes.medium,
-        color = MaterialTheme.colorScheme.primary
-    ) {
-        Row {
-
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                contentAlignment = Alignment.Center
-            ) {
-
-                Text(
-                    modifier = Modifier.padding(8.dp),
-                    text = title,
-                    style = MaterialTheme.typography.headlineMedium,
-                    color = MaterialTheme.colorScheme.surface
-                )
-            }
         }
     }
 }
@@ -305,7 +274,7 @@ fun StandardButtonColor(
         modifier = Modifier,
         colors = ButtonDefaults.buttonColors(
             containerColor = extendedColorScheme.onTertiary,
-            contentColor = MaterialTheme.colorScheme.surface
+            contentColor = MaterialTheme.colorScheme.onBackground
         )
     ) {
         Text(label)

@@ -27,11 +27,11 @@ data class FullPokemon(
 
     private fun getRandomDarkColor(): Color {
         val colors = listOf(
-            Color(0xFF6A4CFF) ,
-                    Color(0xFF7D53FF),
-                    Color(0xFF8A63FF),
-                    Color(0xFF4A7CFF),
-                    Color(0xFF9A77FF),
+            Color(0xFF6A4CFF),
+            Color(0xFF7D53FF),
+            Color(0xFF8A63FF),
+            Color(0xFF4A7CFF),
+            Color(0xFF9A77FF),
             Color.Black
         )
         return colors.random()
@@ -67,6 +67,7 @@ data class PokemonSprites(
 data class PokemonResponse(
     val results: List<FullPokemon>
 )
+
 
 @Serializable
 data class PokemonStatWrapper(

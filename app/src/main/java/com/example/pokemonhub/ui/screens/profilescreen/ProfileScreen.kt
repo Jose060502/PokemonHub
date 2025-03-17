@@ -29,6 +29,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -165,7 +166,7 @@ fun ProfileScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         StandardButtonColor(
-            if (isLogged) stringResource(id = R.string.logout) else stringResource(id = R.string.login),
+            if (isLogged) stringResource(id = R.string.logout, MaterialTheme.colorScheme.onBackground) else stringResource(id = R.string.login, MaterialTheme.colorScheme.onBackground),
             modifier = Modifier.padding(8.dp),
             onClick = {
                 if (isLogged) {
