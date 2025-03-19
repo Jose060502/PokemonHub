@@ -397,10 +397,10 @@ fun LoadingList() {
         verticalArrangement = Arrangement.Center
     ) {
         CircularProgressIndicator(
-            color = colorResource(R.color.white)
+            color = MaterialTheme.colorScheme.onSurface
         )
         Spacer(modifier = Modifier.height(16.dp))
-        Text(stringResource(R.string.loadingList), color = colorResource(R.color.white))
+        Text(stringResource(R.string.loadingList), color = MaterialTheme.colorScheme.onSurface)
     }
 }
 
