@@ -9,37 +9,55 @@ import kotlinx.coroutines.coroutineScope
 // Repositorio encargado de manejar la obtención de datos desde la API
 class PokemonRepository(private val apiService: PokemonApiService) {
 
+    // Constante que define un número de caracteres (probablemente relacionada con la cantidad de Pokémon a manejar)
     companion object {
         const val NUM_CHARACTERS = 1025
     }
 
-    // Función suspendida para obtener la lista de todos los Pokémon con detalles
+    // Función suspendida para obtener la lista de todos los Pokémon con detalles completos
     suspend fun getAllPokemon(): Result<List<FullPokemon>> {
         return try {
-            val response = apiService.getAllPokemon() // Llamada a la API para obtener la lista básica
+            // Llamada a la API para obtener la lista básica de Pokémon (solo nombres y URL)
+            val response = apiService.getAllPokemon()
 
+            // Verifica si la respuesta de la API fue exitosa
             if (response.isSuccessful) {
-                val pokemonList = response.body()?.results ?: emptyList() // Lista de Pokémon obtenida
+                // Obtiene la lista de Pokémon de la respuesta o una lista vacía si es nula
+                val pokemonList = response.body()?.results ?: emptyList()
 
-                val batchSize = 20 // Se procesan en lotes de 20 para optimizar llamadas a la API
+                // Definir el tamaño de los lotes para optimizar las llamadas a la API
+                val batchSize = 20
+
+                // Usamos corutinas para procesar los Pokémon en lotes de 'batchSize'
                 val detailedPokemonList = coroutineScope {
+                    // Divide la lista de Pokémon en lotes de 20
                     pokemonList.chunked(batchSize).mapIndexed { batchIndex, batch ->
+                        // Llamada asincrónica para obtener detalles de cada Pokémon en el lote
                         async {
+                            // Para cada Pokémon en el lote, se obtiene su detalle por ID
                             batch.mapIndexedNotNull { index, _ ->
-                                val id = (batchIndex * batchSize) + index + 1 // Asigna ID basado en la posición
-                                val fullPokemonResponse = apiService.getPokemonById(id) // Obtiene detalles
-                                fullPokemonResponse.body().takeIf { fullPokemonResponse.isSuccessful } // Retorna solo si la respuesta es válida
+                                // Calcula el ID del Pokémon basado en el índice del lote y el índice dentro de ese lote
+                                val id = (batchIndex * batchSize) + index + 1
+
+                                // Llamada a la API para obtener los detalles del Pokémon usando su ID
+                                val fullPokemonResponse = apiService.getPokemonById(id)
+
+                                // Devuelve los detalles solo si la respuesta es exitosa
+                                fullPokemonResponse.body().takeIf { fullPokemonResponse.isSuccessful }
                             }
                         }
-                    }.awaitAll().flatten() // Espera todas las llamadas y aplana la lista
+                    }.awaitAll().flatten() // Espera todas las llamadas y aplana la lista de resultados
                 }
 
-                Result.success(detailedPokemonList) // Retorna la lista completa de Pokémon con detalles
+                // Si la operación fue exitosa, retorna la lista completa de Pokémon con detalles
+                Result.success(detailedPokemonList)
             } else {
-                Result.failure(Exception("Error ${response.code()}: ${response.message()}")) // Manejo de error en la API
+                // Si la respuesta de la API no fue exitosa, devuelve un error con el código y mensaje de la respuesta
+                Result.failure(Exception("Error ${response.code()}: ${response.message()}"))
             }
         } catch (e: Exception) {
-            Result.failure(e) // Captura y retorna cualquier excepción
+            // Si ocurre cualquier excepción durante la ejecución, se captura y devuelve un error con la excepción
+            Result.failure(e)
         }
     }
 }

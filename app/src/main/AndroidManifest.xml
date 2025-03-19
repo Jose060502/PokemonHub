@@ -17,8 +17,9 @@
         <activity
             android:name="com.example.pokemonhub.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.PokemonHub">
+            android:configChanges="orientation|screenSize|keyboardHidden|screenLayout|smallestScreenSize"
+            android:theme="@style/Theme.PokemonHub"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

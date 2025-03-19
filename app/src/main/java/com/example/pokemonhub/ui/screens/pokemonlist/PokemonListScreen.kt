@@ -41,14 +41,19 @@ fun PokemonListCompactScreen(
     pokemonListVM: PokemonListViewModel = viewModel(factory = PokemonListViewModel.Factory),
     favListViewModel: PokemonFavListViewModel = viewModel(factory = PokemonFavListViewModel.Factory)
 ) {
+    // Observamos los estados del ViewModel usando StateFlow
     val uiState by pokemonListVM.uiState.collectAsState()
     val filteredPokemons by pokemonListVM.filteredPokemon.collectAsState()
     val searchQuery by pokemonListVM.searchQuery.collectAsState()
+
+    // Estado para mostrar u ocultar la barra de búsqueda
     var textFieldVisible by remember { mutableStateOf(false) }
+
+    // Estado para gestionar la lista de favoritos
     val favoritesState = remember { mutableStateMapOf<String, Boolean>() }
 
     Column(modifier = modifier.fillMaxSize()) {
-        // Cabecera con el título y el ícono de búsqueda
+        // Cabecera con título e ícono de búsqueda
         MedHeaderCompWithIcon(
             title = stringResource(id = R.string.pokemon_list),
             onSearchClick = { textFieldVisible = !textFieldVisible }
@@ -72,7 +77,7 @@ fun PokemonListCompactScreen(
             )
         }
 
-        // Si no hay Pokémon cargados, cargar los Pokémon
+        // Si la lista de Pokémon está vacía y no está cargando, iniciamos la carga
         if (uiState.pokemon.isEmpty() && uiState.isLoading.not()) {
             pokemonListVM.cargarPokemon()
         }
@@ -83,10 +88,12 @@ fun PokemonListCompactScreen(
                 LoadingList()
             }
         } else {
-            LazyColumn(modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)) {
-                // Iterar sobre los Pokémon filtrados y mostrar cada uno
+            // Lista de Pokémon en un LazyColumn
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+            ) {
                 items(filteredPokemons) { pokemon ->
                     PokemonCard(
                         pokemon = pokemon,
@@ -102,7 +109,6 @@ fun PokemonListCompactScreen(
     }
 }
 
-
 @Composable
 fun PokemonListMedExpScreen(
     navController: NavController,
@@ -110,7 +116,10 @@ fun PokemonListMedExpScreen(
     pokemonListVM: PokemonListViewModel = viewModel(factory = PokemonListViewModel.Factory),
     favListViewModel: PokemonFavListViewModel = viewModel(factory = PokemonFavListViewModel.Factory)
 ) {
+    // Estado para mostrar la barra de búsqueda
     var textFieldVisible by remember { mutableStateOf(false) }
+
+    // Observamos los estados del ViewModel
     val searchQuery by pokemonListVM.searchQuery.collectAsState()
     val filteredPokemon by pokemonListVM.filteredPokemon.collectAsState()
     val uiState by pokemonListVM.uiState.collectAsState()
@@ -129,13 +138,13 @@ fun PokemonListMedExpScreen(
             )
         }
 
-        // Si los datos están cargando, mostrar un indicador de carga
+        // Mostrar indicador de carga si se están cargando los datos
         if (uiState.isLoading) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 LoadingListTablet()
             }
         } else {
-            // Mostrar la lista de Pokémon si no está cargando
+            // Lista de Pokémon en un LazyColumn
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -152,5 +161,6 @@ fun PokemonListMedExpScreen(
         }
     }
 }
+
 
 

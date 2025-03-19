@@ -19,54 +19,67 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
+// ViewModel encargado de gestionar el estado y las operaciones relacionadas con los Pokémon favoritos
 class PokemonFavListViewModel(
-    private val listRepository: FavoritePokeRepository,
-    private val commentRepository: CommentRepository
+    private val listRepository: FavoritePokeRepository,  // Repositorio para manejar los Pokémon favoritos
+    private val commentRepository: CommentRepository     // Repositorio para manejar los comentarios
 ): ViewModel() {
+
+    // Factory para crear una instancia del ViewModel con sus dependencias.
     companion object{
+        // Factory que inicializa el ViewModel y le proporciona las dependencias necesarias.
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
-                val application = (this[APPLICATION_KEY] as PokedexReleaseApplication)
+                val application = (this[APPLICATION_KEY] as PokedexReleaseApplication)  // Obtiene la instancia de la aplicación
                 PokemonFavListViewModel(
-                    application.listRepository,
-                    application.commentRepository
+                    application.listRepository,        // Proveedor del repositorio de Pokémon favoritos
+                    application.commentRepository      // Proveedor del repositorio de comentarios
                 )
             }
         }
     }
 
+    // MutableStateFlow que representa el estado mutable de la UI
     private val _uiState = MutableStateFlow(PokemonFavouriteUiState())
+
+    // StateFlow que representa el estado inmutable de la UI, disponible para ser observado
     val uiState: StateFlow<PokemonFavouriteUiState> = _uiState.asStateFlow()
+
+    // Inicialización: se recuperan los Pokémon favoritos al crear el ViewModel
     init {
         recoverFavourites()
     }
 
-    private fun recoverFavourites(){
-        viewModelScope.launch {
-            _uiState.value = _uiState.value.copy(isLoading = true)
+    // Función para recuperar la lista de Pokémon favoritos desde el repositorio
+    private fun recoverFavourites() {
+        viewModelScope.launch {  // Ejecuta la operación de manera asincrónica en el scope del ViewModel
+            _uiState.value = _uiState.value.copy(isLoading = true)  // Marca que los datos están siendo cargados
             listRepository.getAllPokemons.catch {
+                // En caso de error al obtener los Pokémon favoritos
                 _uiState.value = _uiState.value.copy(
-                    isLoading = false,
-                    errorMessageFAV = ErrorMessageFAV.ERROR_LOADING_FAVLIST
+                    isLoading = false,  // Detiene el estado de carga
+                    errorMessageFAV = ErrorMessageFAV.ERROR_LOADING_FAVLIST  // Establece el error específico
                 )
             }
-                .collect{
-                    favList ->
+                .collect { favList ->  // Al recibir la lista de favoritos
+                    // Actualiza el estado con los Pokémon favoritos y termina la carga
                     _uiState.value = PokemonFavouriteUiState(
                         favorites = favList,
                         isLoading = false,
-                        errorMessageFAV = null
+                        errorMessageFAV = null  // Sin errores
                     )
                 }
         }
     }
-    
-    fun insertFavourite(item: PokeModel){
+
+    // Función para insertar un nuevo Pokémon en los favoritos
+    fun insertFavourite(item: PokeModel) {
         viewModelScope.launch {
             try {
-                Log.d("PokemonFavListViewModel", "Insertando favorito: $item")
-                listRepository.insert(item)
-            } catch (e : Exception){
+                Log.d("PokemonFavListViewModel", "Insertando favorito: $item")  // Registra la acción en los logs
+                listRepository.insert(item)  // Inserta el Pokémon en el repositorio
+            } catch (e: Exception) {
+                // Si ocurre un error, actualiza el estado con un mensaje de error
                 _uiState.value = _uiState.value.copy(
                     errorMessageFAV = ErrorMessageFAV.ERROR_INSERTING_FAV
                 )
@@ -74,11 +87,13 @@ class PokemonFavListViewModel(
         }
     }
 
-    fun deleteFavourite(item: PokeModel){
+    // Función para eliminar un Pokémon de los favoritos
+    fun deleteFavourite(item: PokeModel) {
         viewModelScope.launch {
             try {
-                listRepository.delete(item)
+                listRepository.delete(item)  // Elimina el Pokémon del repositorio
             } catch (e: Exception) {
+                // Si ocurre un error, actualiza el estado con un mensaje de error
                 _uiState.value = _uiState.value.copy(
                     errorMessageFAV = ErrorMessageFAV.ERROR_DELETING_FAV
                 )
@@ -86,21 +101,25 @@ class PokemonFavListViewModel(
         }
     }
 
+    // Función para agregar un comentario a un Pokémon favorito
     fun addCommentToFavorite(favoriteName: String?, userName: String, commentText: String) {
         viewModelScope.launch {
             try {
+                // Crea un nuevo comentario con los datos proporcionados
                 val newComment = Comment(
                     favoriteName = favoriteName,
                     userName = userName,
                     commentText = commentText
                 )
-                commentRepository.insertComment(newComment)
+                commentRepository.insertComment(newComment)  // Inserta el comentario en el repositorio
             } catch (e: Exception) {
+                // No se maneja el error aquí, pero se podría agregar un manejo de excepciones si fuera necesario
             }
         }
     }
-    fun getCommentsForFavorite(favoriteName: String): Flow<List<Comment>> {
-        return commentRepository.getCommentsByFavoriteId(favoriteName)
-    }
 
+    // Función para obtener los comentarios asociados a un Pokémon favorito
+    fun getCommentsForFavorite(favoriteName: String): Flow<List<Comment>> {
+        return commentRepository.getCommentsByFavoriteId(favoriteName)  // Devuelve los comentarios del repositorio
+    }
 }

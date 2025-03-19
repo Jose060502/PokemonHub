@@ -6,7 +6,9 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicText
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -37,11 +39,13 @@ fun AboutScreenContent() {
             )
         }
     ) { innerPadding ->
+        // Añadido el modificador verticalScroll aquí
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .padding(16.dp),
+                .padding(16.dp)
+                .verticalScroll(rememberScrollState()), // Permite el scroll
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.height(30.dp))
@@ -85,7 +89,6 @@ fun AboutScreenContent() {
         }
     }
 }
-
 // Función para enviar un correo electrónico usando un Intent
 fun sendEmail(context: Context) {
     val emailIntent = Intent(Intent.ACTION_SENDTO).apply {

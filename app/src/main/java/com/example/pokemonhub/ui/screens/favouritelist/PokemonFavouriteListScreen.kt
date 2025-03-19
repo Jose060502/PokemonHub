@@ -12,6 +12,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -24,40 +25,51 @@ import com.example.pokemonhub.ui.components.PokemonFavouriteCard
 import com.example.pokemonhub.ui.components.PokemonFavouriteLandCard
 
 
+// Composable que muestra la lista de Pokémon favoritos en vista compacta
 @Composable
 fun PokemonFavouriteListCompactScreen(
-    navController: NavController,
+    navController: NavController, // Controlador de navegación para manejar la navegación entre pantallas
     modifier: Modifier = Modifier,
-    viewModel: PokemonFavListViewModel = viewModel(factory = PokemonFavListViewModel.Factory)
+    viewModel: PokemonFavListViewModel = viewModel(factory = PokemonFavListViewModel.Factory) // ViewModel que gestiona la lista de favoritos
 ) {
-    var showDialog by remember { mutableStateOf(false) }
-    var pokemonNameSelected by remember { mutableStateOf("") }
-    val uiState by viewModel.uiState.collectAsState()
-    val pokemon = uiState.favorites
+    var showDialog by remember { mutableStateOf(false) }  // Estado para controlar la visibilidad del diálogo de confirmación de eliminación
+    var pokemonNameSelected by remember { mutableStateOf("") }  // Estado para almacenar el nombre del Pokémon seleccionado para eliminar
+    val uiState by viewModel.uiState.collectAsState()  // Estado de la UI obtenido del ViewModel
+    val pokemon = uiState.favorites  // Lista de Pokémon favoritos
 
+    // Si showDialog es true, se muestra el diálogo de confirmación de eliminación
     if (showDialog) {
-        ConfirmDeleteDialog(pokemonName = pokemonNameSelected,
-            onCancel = { showDialog = false },
+        ConfirmDeleteDialog(
+            pokemonName = pokemonNameSelected,
+            onCancel = { showDialog = false },  // Cierra el diálogo si el usuario cancela
             onConfirm = {
+                // Busca el Pokémon seleccionado en la lista de favoritos
                 val favDelete = pokemon.find { it.name == pokemonNameSelected }
                 if (favDelete != null) {
-                    viewModel.deleteFavourite(favDelete)
-                    showDialog = false
+                    viewModel.deleteFavourite(favDelete)  // Llama a la función para eliminarlo
+                    showDialog = false  // Cierra el diálogo tras la confirmación
                 }
-            })
+            }
+        )
     }
+
+    // Estructura de la pantalla
     Column(modifier = modifier.fillMaxSize()) {
-        MedHeaderComp(title = stringResource(id = R.string.fav_characters))
+        MedHeaderComp(title = stringResource(id = R.string.fav_characters))  // Encabezado de la pantalla
+
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colorScheme.primary)
+                .background(MaterialTheme.colorScheme.primary)  // Color de fondo
         ) {
-            items(pokemon) { character ->
-                PokemonFavouriteCard(pokemon = character,
-                    onClick = { navController.navigate("pokemonfav_detail/${character.name}") }) {
-
-                    pokemonNameSelected = character.name!!
+            // Recorre la lista de Pokémon favoritos y los muestra en una lista
+            items(pokemon) { pokemon ->
+                PokemonFavouriteCard(
+                    pokemon = pokemon,
+                    onClick = { navController.navigate("pokemonfav_detail/${pokemon.name}") } // Navega a la pantalla de detalles del Pokémon
+                ) {
+                    // Guarda el nombre del Pokémon seleccionado y muestra el diálogo de confirmación
+                    pokemonNameSelected = pokemon.name!!
                     showDialog = true
                 }
             }
@@ -71,21 +83,48 @@ fun PokemonFavouriteListMedExpScreen(
     pokemonListViewModel: PokemonFavListViewModel = viewModel(factory = PokemonFavListViewModel.Factory),
     modifier: Modifier = Modifier
 ) {
-    val uiState by pokemonListViewModel.uiState.collectAsState()
-    val pokemonList = uiState.favorites
+    var showDialog by remember { mutableStateOf(false) }  // Estado para controlar el diálogo de confirmación
+    var pokemonNameSelected by remember { mutableStateOf("") }  // Nombre del Pokémon seleccionado para eliminar
+    val uiState by pokemonListViewModel.uiState.collectAsState()  // Estado de UI desde ViewModel
+    val pokemonList = uiState.favorites  // Lista de Pokémon favoritos
 
+    // Si showDialog es true, muestra el diálogo de confirmación de eliminación
+    if (showDialog) {
+        ConfirmDeleteDialog(
+            pokemonName = pokemonNameSelected,
+            onCancel = { showDialog = false },  // Cierra el diálogo si el usuario cancela
+            onConfirm = {
+                // Busca el Pokémon seleccionado en la lista
+                val favDelete = pokemonList.find { it.name == pokemonNameSelected }
+                if (favDelete != null) {
+                    pokemonListViewModel.deleteFavourite(favDelete)  // Llama a la función para eliminarlo
+                    showDialog = false  // Cierra el diálogo tras la confirmación
+                }
+            }
+        )
+    }
+
+    // Estructura de la pantalla
     Column(modifier = modifier.fillMaxSize()) {
-        MedHeaderComp(title = stringResource(id = R.string.fav_characters))
+        MedHeaderComp(title = stringResource(id = R.string.fav_characters))  // Encabezado de la pantalla
+
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.primary)
+                .background(MaterialTheme.colorScheme.primary)  // Color de fondo
         ) {
-            items(pokemonList) { pokemonList ->
-                PokemonFavouriteLandCard(pokemonList) {
-                    navController.navigate("pokemonfav_detail/${pokemonList.name}")
+            items(pokemonList) { pokemon ->
+                PokemonFavouriteLandCard(
+                    pokemon = pokemon,
+                    onClick = { navController.navigate("pokemonfav_detail/${pokemon.name}") } // Navega a la pantalla de detalles del Pokémon
+                ) {
+                    // Guarda el nombre del Pokémon seleccionado y muestra el diálogo de confirmación
+                    pokemonNameSelected = pokemon.name!!
+                    showDialog = true
                 }
+
             }
         }
     }
 }
+
