@@ -119,7 +119,8 @@ fun LabelAndValueComp(label: String, modifier: Modifier = Modifier, value: Strin
 fun StandardTextComp(
     text: String,
     modifier: Modifier = Modifier,
-    style: androidx.compose.ui.text.TextStyle = MaterialTheme.typography.bodyMedium
+    style: androidx.compose.ui.text.TextStyle = MaterialTheme.typography.bodyMedium,
+    color: Color = MaterialTheme.colorScheme.onSurface
 ) {
     Text(
         modifier = modifier,
