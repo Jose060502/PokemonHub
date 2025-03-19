@@ -7,7 +7,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Entity(tableName = "favoritelist")
-data class ListModel(
+data class PokeModel(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
 

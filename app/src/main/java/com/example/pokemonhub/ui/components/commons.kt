@@ -31,12 +31,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.pokemonhub.R
-import com.example.pokemonhub.datamodel.ListModel
+import com.example.pokemonhub.datamodel.PokeModel
 import com.example.pokemonhub.model.Pokemon
 import com.example.pokemonhub.ui.theme.LocalExtendedColorScheme
 
@@ -323,7 +322,7 @@ fun BarraDetallesPokemon(title: String, pokemon: Pokemon, onClick: () -> Unit) {
 }
 
 @Composable
-fun BarraDetallesPokemonFavorito(title: String, favorite: ListModel, onClick: () -> Unit) {
+fun BarraDetallesPokemonFavorito(title: String, favorite: PokeModel, onClick: () -> Unit) {
     val bgColor = try {
         Color(android.graphics.Color.parseColor(favorite.colorHex))
     } catch (e: Exception) {

@@ -8,10 +8,10 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.pokemonhub.datamodel.Comment
-import com.example.pokemonhub.datamodel.ListModel
+import com.example.pokemonhub.datamodel.PokeModel
 import com.example.pokemonhub.pokemonRelease.PokedexReleaseApplication
 import com.example.pokemonhub.repository.CommentRepository
-import com.example.pokemonhub.repository.FavoriteListRepository
+import com.example.pokemonhub.repository.FavoritePokeRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
 class PokemonFavListViewModel(
-    private val listRepository: FavoriteListRepository,
+    private val listRepository: FavoritePokeRepository,
     private val commentRepository: CommentRepository
 ): ViewModel() {
     companion object{
@@ -61,7 +61,7 @@ class PokemonFavListViewModel(
         }
     }
     
-    fun insertFavourite(item: ListModel){
+    fun insertFavourite(item: PokeModel){
         viewModelScope.launch {
             try {
                 Log.d("PokemonFavListViewModel", "Insertando favorito: $item")
@@ -74,7 +74,7 @@ class PokemonFavListViewModel(
         }
     }
 
-    fun deleteFavourite(item: ListModel){
+    fun deleteFavourite(item: PokeModel){
         viewModelScope.launch {
             try {
                 listRepository.delete(item)

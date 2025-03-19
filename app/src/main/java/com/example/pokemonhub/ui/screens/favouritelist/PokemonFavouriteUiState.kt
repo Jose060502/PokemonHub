@@ -1,9 +1,9 @@
 package com.example.pokemonhub.ui.screens.favouritelist
 
-import com.example.pokemonhub.datamodel.ListModel
+import com.example.pokemonhub.datamodel.PokeModel
 
 data class PokemonFavouriteUiState(
-    val favorites: List<ListModel> = emptyList(),
+    val favorites: List<PokeModel> = emptyList(),
     val isLoading: Boolean = false,
     val errorMessageFAV: ErrorMessageFAV? = null
 )

@@ -7,9 +7,9 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.pokemonhub.datamodel.Comment
 import com.example.pokemonhub.datamodel.Convert
-import com.example.pokemonhub.datamodel.ListModel
+import com.example.pokemonhub.datamodel.PokeModel
 
-@Database(entities = [ListModel::class,Comment::class], version = 12, exportSchema = false)
+@Database(entities = [PokeModel::class,Comment::class], version = 12, exportSchema = false)
 @TypeConverters(Convert::class)
 abstract class PokemonDatabase : RoomDatabase(){
     abstract fun ListDAO() : PokeDAO

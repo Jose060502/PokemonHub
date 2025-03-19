@@ -62,7 +62,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.pokemonhub.R
 import com.example.pokemonhub.datamodel.Comment
-import com.example.pokemonhub.datamodel.ListModel
+import com.example.pokemonhub.datamodel.PokeModel
 import com.example.pokemonhub.model.Pokemon
 import com.example.pokemonhub.ui.screens.favouritelist.PokemonFavListViewModel
 import com.example.pokemonhub.ui.screens.profilescreen.ProfileViewModel
@@ -112,7 +112,7 @@ fun PokemonCard(
                     if (isAlreadyFavorite) {
                         Toast.makeText(context, alreadyFavoriteMsg, Toast.LENGTH_SHORT).show()
                     } else {
-                        val favoriteItem = ListModel(
+                        val favoriteItem = PokeModel(
                             name = pokemon.name,
                             imageUrl = pokemon.imageUrl,
                             colorHex = hexColor,
@@ -237,7 +237,7 @@ fun PokemonLandCard(
                     if (isAlreadyFavorite) {
                         Toast.makeText(context, alreadyfavorite, Toast.LENGTH_SHORT).show()
                     } else {
-                        val favoriteItem = ListModel(
+                        val favoriteItem = PokeModel(
                             name = pokemon.name,
                             imageUrl = pokemon.imageUrl,
                             colorHex = "", // Aquí puedes añadir un color si lo necesitas
@@ -273,7 +273,7 @@ fun PokemonLandCard(
 
 @Composable
 fun PokemonFavouriteCard(
-    pokemon: ListModel,
+    pokemon: PokeModel,
     onClick: () -> Unit,
     onClickClear: () -> Unit
 ) {
@@ -338,7 +338,7 @@ fun PokemonFavouriteCard(
 
 @Composable
 fun PokemonFavouriteLandCard(
-    pokemon: ListModel,
+    pokemon: PokeModel,
     onClick: () -> Unit
 ) {
     val context = LocalContext.current
@@ -615,7 +615,7 @@ fun PokemonDetailCardLand(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PokemonDetailFavCard(
-    favorite: ListModel, // Usamos ListModel
+    favorite: PokeModel, // Usamos ListModel
     modifier: Modifier = Modifier,
     onBackClick: () -> Unit,
     profileViewModel: ProfileViewModel = viewModel(factory = ProfileViewModel.Factory),

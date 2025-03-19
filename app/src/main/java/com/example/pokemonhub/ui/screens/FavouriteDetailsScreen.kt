@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
-import com.example.pokemonhub.datamodel.ListModel
+import com.example.pokemonhub.datamodel.PokeModel
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.example.pokemonhub.ui.components.PokemonDetailFavCard
@@ -14,7 +14,7 @@ import com.example.pokemonhub.ui.components.PokemonDetailFavCard
 @Composable
 fun DetailFavPokemonScreen(
     name: String,
-    favorite: ListModel,
+    favorite: PokeModel,
     navController: NavController,
     modifier: Modifier = Modifier
 ) {
