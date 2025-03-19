@@ -9,7 +9,7 @@ import com.example.pokemonhub.datamodel.ListModel
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface ListDAO {
+interface PokeDAO {
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insert(pokemon: ListModel)

@@ -12,7 +12,7 @@ import com.example.pokemonhub.datamodel.ListModel
 @Database(entities = [ListModel::class,Comment::class], version = 12, exportSchema = false)
 @TypeConverters(Convert::class)
 abstract class PokemonDatabase : RoomDatabase(){
-    abstract fun ListDAO() : ListDAO
+    abstract fun ListDAO() : PokeDAO
     abstract fun commentDAO(): CommentDAO
 
     companion object {

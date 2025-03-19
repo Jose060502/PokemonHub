@@ -439,6 +439,7 @@ fun PokemonDetailCard(
         modifier = modifier
             .fillMaxWidth()
             .fillMaxHeight(),
+        shape = MaterialTheme.shapes.extraSmall
     ) {
         BarraDetallesPokemon(stringResource(R.string.detalles_pokemon), pokemon, onBackClick)
         Column(
@@ -534,6 +535,7 @@ fun PokemonDetailCardLand(
             .fillMaxWidth()
             .fillMaxHeight()
             .padding(8.dp),
+        shape = MaterialTheme.shapes.extraSmall
     ) {
         BarraDetallesPokemon(stringResource(R.string.detalles_pokemon), pokemon, onBackClick)
         Column {
