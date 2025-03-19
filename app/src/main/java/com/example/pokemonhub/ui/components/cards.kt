@@ -316,17 +316,17 @@ fun PokemonFavouriteCard(
             Column(
                 modifier = Modifier
                     .weight(1f)
-                    .padding(start = 16.dp)
+                    .padding(start = 8.dp)
             ) {
                 StandardTextNull(pokemon.name)
             }
             IconButton(
                 onClick = { onClickClear() },
-                modifier = Modifier.size(48.dp)
+                modifier = Modifier.size(38.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.Delete,
-                    modifier = Modifier.size(48.dp),
+                    modifier = Modifier.size(38.dp),
                     contentDescription = stringResource(R.string.icono_eliminar),
                     tint = MaterialTheme.colorScheme.surface
                 )
