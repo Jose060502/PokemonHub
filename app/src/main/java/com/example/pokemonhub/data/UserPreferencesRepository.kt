@@ -25,7 +25,7 @@ class UserPreferencesRepository(
     suspend fun savePreferences(userPrefs: UserPreferences) {
         dataStore.edit { preferences ->
             preferences[NOMBRE_USUARIO] = userPrefs.nombreUsario // Guarda el nombre de usuario
-            preferences[MODO_VISUALIZACION] = userPrefs.modoVisualizacion // Guarda el modo de visualización
+            preferences[MODO_VISUALIZACION] = userPrefs.modoVisualizacionApp // Guarda el modo de visualización
         }
     }
 

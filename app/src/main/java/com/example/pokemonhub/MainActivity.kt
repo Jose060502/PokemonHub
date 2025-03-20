@@ -1,7 +1,6 @@
 package com.example.pokemonhub
 
 import android.app.Activity
-import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -20,7 +19,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.pokemonhub.data.ModoVisualizacion
-import com.example.pokemonhub.model.Datasource
 import com.example.pokemonhub.model.Datasource.pokemonFavList
 import com.example.pokemonhub.ui.components.BottomNavigationBar
 import com.example.pokemonhub.ui.screens.AboutScreenContent
@@ -45,13 +43,13 @@ class MainActivity : ComponentActivity() {
         setContent {
             val profileViewModel: ProfileViewModel = viewModel(factory = ProfileViewModel.Factory)
             val profileUiState by profileViewModel.uiState.collectAsState()
-            val isDarkTheme = when (profileUiState.modoVisualizacion) {
+            val appTheme = when (profileUiState.modoVisualizacionApp) {
                 ModoVisualizacion.CLARO -> false
                 ModoVisualizacion.OSCURO -> true
                 ModoVisualizacion.SYSTEM -> isSystemInDarkTheme()
             }
             PokemonHubTheme(
-                darkTheme = isDarkTheme,
+                darkTheme = appTheme,
             ) {
                 PokemonList()
             }

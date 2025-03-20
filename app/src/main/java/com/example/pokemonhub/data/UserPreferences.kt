@@ -2,7 +2,7 @@ package com.example.pokemonhub.data
 
 data class UserPreferences(
     val nombreUsario: String,       // Nombre del usuario
-    val modoVisualizacion: String   // Modo de visualización preferido (claro, oscuro o sistema)
+    val modoVisualizacionApp: String   // Modo de visualización preferido (claro, oscuro o sistema)
 ) {
     companion object {
         const val SETTINGS_FILE = "settings_file" // Nombre del archivo de configuración

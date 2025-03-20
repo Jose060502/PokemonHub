@@ -2,23 +2,15 @@ package com.example.pokemonhub.ui.screens.profilescreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.twotone.Call
-import androidx.compose.material.icons.twotone.Email
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.material3.Icon
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.TextField
@@ -29,7 +21,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -100,7 +91,7 @@ fun ProfileScreen(
         ) {
             // RadioButton para el modo Claro
             RadioButton(
-                selected = profileUiState.modoVisualizacion == ModoVisualizacion.CLARO, // Se selecciona si el modo actual es Claro
+                selected = profileUiState.modoVisualizacionApp == ModoVisualizacion.CLARO, // Se selecciona si el modo actual es Claro
                 onClick = {
                     // Al hacer clic, se actualiza el estado en el ViewModel con el modo seleccionado
                     val nameToUse = if (isLogged) profileUiState.nombreUsuario else tempUserName
@@ -128,7 +119,7 @@ fun ProfileScreen(
 
             // RadioButton para el modo Oscuro
             RadioButton(
-                selected = profileUiState.modoVisualizacion == ModoVisualizacion.OSCURO, // Se selecciona si el modo actual es Oscuro
+                selected = profileUiState.modoVisualizacionApp == ModoVisualizacion.OSCURO, // Se selecciona si el modo actual es Oscuro
                 onClick = {
                     val nameToUse = if (isLogged) profileUiState.nombreUsuario else tempUserName
                     profileViewModel.setSettings(
@@ -154,7 +145,7 @@ fun ProfileScreen(
 
             // RadioButton para el modo Sistema (ajuste según el sistema operativo)
             RadioButton(
-                selected = profileUiState.modoVisualizacion == ModoVisualizacion.SYSTEM, // Se selecciona si el modo actual es Sistema
+                selected = profileUiState.modoVisualizacionApp == ModoVisualizacion.SYSTEM, // Se selecciona si el modo actual es Sistema
                 onClick = {
                     val nameToUse = if (isLogged) profileUiState.nombreUsuario else tempUserName
                     profileViewModel.setSettings(
@@ -189,14 +180,14 @@ fun ProfileScreen(
                     // Si el usuario está logueado, cierra sesión y limpia el nombre
                     profileViewModel.setSettings(
                         nombreUsuario = "",
-                        modoVisualizacion = profileUiState.modoVisualizacion
+                        modoVisualizacion = profileUiState.modoVisualizacionApp
                     )
                     tempUserName = "" // Restablece el nombre de usuario temporal
                 } else {
                     // Si no está logueado, guarda el nombre de usuario ingresado
                     profileViewModel.setSettings(
                         nombreUsuario = tempUserName,
-                        modoVisualizacion = profileUiState.modoVisualizacion
+                        modoVisualizacion = profileUiState.modoVisualizacionApp
                     )
                 }
             }

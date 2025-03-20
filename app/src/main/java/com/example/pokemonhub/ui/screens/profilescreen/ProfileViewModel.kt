@@ -45,7 +45,7 @@ class ProfileViewModel(
                 userPreferencesRepository.savePreferences(
                     UserPreferences(
                         nombreUsario = nombreUsuario, // Guarda el nombre del usuario
-                        modoVisualizacion = modoVisualizacion.name, // Guarda el modo de visualización como string
+                        modoVisualizacionApp = modoVisualizacion.name, // Guarda el modo de visualización como string
                     )
                 )
             } catch (e: Exception) {
@@ -69,8 +69,8 @@ class ProfileViewModel(
                     _uiState.update { currentState ->
                         currentState.copy(
                             nombreUsuario = preferences.nombreUsario, // Asigna el nombre del usuario desde Datastore
-                            modoVisualizacion = try {
-                                ModoVisualizacion.valueOf(preferences.modoVisualizacion) // Convierte el string a enum
+                            modoVisualizacionApp = try {
+                                ModoVisualizacion.valueOf(preferences.modoVisualizacionApp) // Convierte el string a enum
                             } catch (e: Exception) {
                                 ModoVisualizacion.SYSTEM // Si el valor no es válido, usa el modo por defecto
                             }
